@@ -1,0 +1,44 @@
+// Светлая тема
+[data-theme="light"] {
+	--background-primary: #F6F6F9;
+	--background-secondary: #FFFFFF;
+
+	--text-primary: #363949;
+	--text-secondary: #677483;
+	--text-tertiary: #97AAB4;
+
+	--box-shadow: rgb(132, 139, 200, .18);
+}
+
+
+// Тёмная тема
+[data-theme="dark"] {
+	--background-primary: #161A1E;
+	--background-secondary: #202528;
+
+	--text-primary: #EDEFFD;
+	--text-secondary: #A3BDCC;
+	--text-tertiary: #727f87;
+
+	--box-shadow: rgb(0, 0, 0, .4);
+}		
+
+
+// Акцентные цвета
+$accent-blue: #7380EC;
+$accent-green: #41F1B6;
+$accent-red: #FF7782;
+$accent-yellow: #FFBB55;
+$accent-black: #000000;
+$accent-white: #FFFFFF;
+
+
+// SCSS-переменные для цветов
+$background-primary: var(--background-primary);
+$background-secondary: var(--background-secondary);
+
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-tertiary: var(--text-tertiary);
+
+$box-shadow: var(--box-shadow);
