@@ -4,8 +4,8 @@ import { nextTick } from "vue";
 
 declare module "vue-router" {
 	interface RouteMeta {
-		titleHtml: string,
-		title: String
+		titleHtml: string, 
+		title: String   
 	}
 }
 
