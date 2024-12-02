@@ -17,7 +17,6 @@
 
 <style scoped lang="scss">
 	.container {
-		align-items: flex-start;
 		display: flex;
 		gap: 2.1vw;
 
