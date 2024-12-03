@@ -68,12 +68,12 @@
 	.chart {
 		align-items: center;
 		display: flex;
-		flex: 0 0 30%;
+		flex: 1 1 50%;
 		flex-direction: column;
 		gap: 0.5vw;
 
 		&__container {
-			height: 5vw;
+			height: 6vw;
 			width: 100%;
 
 			&-canvas {

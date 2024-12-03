@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	import { computed, ref, watch } from "vue";
 
+	import type { TypeBookings } from "@/types/TypeBookings";
 	import type { TypeUsers } from "@/types/TypeUsers";
 
 	import TheBlackout from "@/layouts/TheBlackout.vue";
@@ -9,11 +10,14 @@
 	import { getWordEnding } from "@/helpers/words";
 	import { debounce } from "@/helpers/debounce";
 
+	import { isInstanceOf } from "@/helpers/types";
+
 
 	const props = defineProps<{
-		searchResults: TypeUsers[];
+		searchResults: TypeUsers[] | TypeBookings[];
 		isVisible: boolean;
 		searchText: string;
+		title: string;
 	}>();
 
 	const emits = defineEmits<{
@@ -55,7 +59,7 @@
 		<ThePopup
 			@close-popup="clearSearch"
 			:is-visible="isVisible"	
-			title="Поиск по пользователям"
+			:title="title"
 		>
 			<main class="content">
 				<div class="content__field">
@@ -72,7 +76,7 @@
 					<h3 v-if="!searchResults || searchResults.length === 0" class="content__title">{{ !searchModel ? "Здесь будут показаны результаты" : "Ничего не найдено" }}</h3>
 					<template v-else>
 						<h3 class="content__title">{{ generateResultsMessage }}</h3>
-						<ul class="content__list">
+						<ul v-if="isInstanceOf<TypeUsers>(searchResults, 'firstName')" class="content__list">
 							<li 
 								v-for="user in searchResults"
 								:key="user.id"
@@ -82,6 +86,18 @@
 								<span class="content__list-text date">На сайте с <b>{{ user.dateOfRegistration }}</b></span>
 								<span class="content__list-text firstName">{{ user.firstName }}</span>
 								<span class="content__list-text lastName">{{ user.lastName }}</span>
+							</li>
+						</ul>
+						<ul v-else-if="isInstanceOf<TypeBookings>(searchResults, 'dateOfBooking')" class="content__list">
+							<li 
+								v-for="booking in searchResults"
+								:key="booking.id"
+								class="content__list-el"
+							>
+								<h6 class="content__list-title">{{ booking.email }}</h6>
+								<span class="content__list-text date">На <b>{{ booking.dateOfBooking }}</b></span>
+								<span class="content__list-text firstName">{{ booking.coworkingSpace }}</span>
+								<span class="content__list-text lastName">{{ booking.coworkingPlace }}</span>
 							</li>
 						</ul>
 					</template>
@@ -193,6 +209,7 @@
 			}
 
 			&-el {
+				align-items: center;
 				display: grid;
 				justify-content: space-between;
 				grid-template-columns: 1fr 1fr;

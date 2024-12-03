@@ -13,8 +13,8 @@
 	}>();
 
 	defineEmits<{
-		(e: "closePopup"): void,
-		(e: "setSorting", value: TypeSorting): void
+		(e: "closePopup"): void;
+		(e: "setSorting", value: string): void;
 	}>();
 </script>
 
@@ -34,6 +34,7 @@
 					<li
 						v-for="(sorting) in sortingItems" 
 						:key="sorting.value"
+						:title="sorting.htmlTitle"
 						class="content__list-el"
 					>
 						<BaseCheckbox
