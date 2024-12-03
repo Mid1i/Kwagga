@@ -121,7 +121,7 @@
 				</div>
 			</div>
 			<section class="main__bookings">
-				<h2 class="main__title">Недавние заказы</h2>
+				<h2 class="main__title">Недавние брони</h2>
 				<div class="main__table">
 					<header class="main__table-header">
 						<span class="main__table-title">ID брони</span>	
