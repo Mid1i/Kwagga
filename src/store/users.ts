@@ -45,7 +45,7 @@ export const useUsers = defineStore("users", () => {
 	 */
 	const fillUsers = (): TypeUsers[] => {
 		let users = [];
-		for (let i = 0; i < 56; i++) users.push({...user, id: i + 1});
+		for (let i = 0; i < 53; i++) users.push({...user, id: i + 1});
 		return users;
 	};
 
@@ -60,13 +60,13 @@ export const useUsers = defineStore("users", () => {
 	};
 
 	/**
-	 * Поиск пользователей по email.
+	 * Поиск пользователей по email или id.
 	 * 
 	 * @param {string} search - Текущая величина поиска. 
 	 * @return {void}
 	 */
 	const searchUsers = (search: string): void => {
-		searchResults.value = search ? fillUsers().filter(item => item.email.includes(search)) : [];
+		searchResults.value = search ? fillUsers().filter(item => item.email.includes(search) || item.id === Number(search)) : [];
 	};
 
 	/**
@@ -116,14 +116,14 @@ export const useUsers = defineStore("users", () => {
 		 */
 		fillUsers,
 		/**
-		 * Поиск пользователей по email.
+		 * Поиск пользователей по email или id.
 		 * 
 		 * @param {string} search - Текущая величина поиска.
 		 * @return {void}
 		 */
 		searchUsers,
 		/**
-		 * Установить/сбросить сортировку по пользователям.
+		 * Установить/сбросить сортировку.
 		 * 
 		 * @param {string} value - Текущая сортировка. 
 		 * @return {void}
