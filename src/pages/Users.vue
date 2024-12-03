@@ -66,19 +66,14 @@
 		</div>
 		<aside class="main__aside">
 			<div class="main__row">
-				<button @click="() => isSearchVisible = !isSearchVisible" class="main__button" title="Найти пользователя">
-					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#search"/>
-					</svg>
-				</button>
 				<button @click="() => isSortingVisible = !isSortingVisible" class="main__button" title="Сортировать пользователей">
 					<svg class="main__button-icon" height="20" width="20">
 						<use xlink:href="@/assets/icons/actions.svg#sort"/>
 					</svg>
 				</button>
-				<button class="main__button" title="Применить фильтры">
+				<button @click="() => isSearchVisible = !isSearchVisible" class="main__button" title="Найти пользователя">
 					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#filter"/>
+						<use xlink:href="@/assets/icons/actions.svg#search"/>
 					</svg>
 				</button>
 			</div>
@@ -107,7 +102,8 @@
 		@search="usersStore.searchUsers"
 		:search-results="usersStore.searchResults"
 		:is-visible="isSearchVisible"
-		search-text="Найти по email"
+		title="Поиск по пользователям"
+		search-text="Введите email или ID пользователя"
 	/>
 
 	<SortingPopup
@@ -208,7 +204,9 @@
 
 		&__button {
 			border: 0.05vw dashed $accent-blue;
-			border-radius: 1.3vw;
+			border-radius: 0.5vw;
+
+			flex: 1 1 48%;
 
 			padding: 0.5vw 1.05vw;
 
@@ -222,6 +220,11 @@
 			gap: 1vw;
 
 			@include layout;
+
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 1vw;
+			justify-content: center;
 
 			&-title {
 				color: $text-primary;
