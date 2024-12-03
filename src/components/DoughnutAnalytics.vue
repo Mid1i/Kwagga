@@ -7,6 +7,7 @@
 
 
 	const props = defineProps<{
+		isBigger?: boolean;
 		colors: string[],
 		data: number[],
 		labels: string[]
@@ -43,7 +44,7 @@
 
 <template>
 	<div class="chart">
-		<div class="chart__container">
+		<div :class="['chart__container', { big: isBigger }]">
 			<canvas class="chart__container-canvas" ref="canvasRef"></canvas>
 		</div>
 		<ul class="chart__list">
@@ -76,9 +77,13 @@
 			height: 6vw;
 			width: 100%;
 
+			&.big {
+				height: 8vw;
+			}
+
 			&-canvas {
-				height: 100%;
-				width: 100%;
+				height: 100% !important;
+				width: 100% !important;
 			}
 		}
 

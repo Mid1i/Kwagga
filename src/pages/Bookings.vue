@@ -130,6 +130,7 @@
 			<div class="main__analytics">
 				<h3 class="main__analytics-title">Общая статистика по броням</h3>
 				<DoughnutAnalytics
+					is-bigger
 					:data="[40, 40, 20]"
 					:colors="['rgb(65, 241, 182)', 'rgb(255, 187, 85)', 'rgb(255, 119, 130)']"
 					:labels="['ИдеяHub', 'TechHub', 'BeautyLab']"
