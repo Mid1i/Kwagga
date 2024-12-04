@@ -5,7 +5,7 @@
 	}>();
 
 	defineEmits<{
-		(e: "closePopup", isVisible?: boolean): boolean
+		closePopup: [];
 	}>();
 </script>
 

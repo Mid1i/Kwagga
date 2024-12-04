@@ -15,7 +15,7 @@
 	}>();
 
 	defineEmits<{
-		(e: "updateDate", date: Date): void
+		updateDate: [date: Date];
 	}>();
 	
 	const activeMode = ref<"calendar" | "months" | "years">("calendar");

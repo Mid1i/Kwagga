@@ -14,8 +14,8 @@
 	}>();
 
 	defineEmits<{
-		(e: "closePopup"): void;
-		(e: "setSorting", value: string): void;
+		closePopup: [];
+		setSorting: [value: string];
 	}>();
 </script>
 

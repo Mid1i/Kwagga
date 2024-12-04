@@ -8,7 +8,7 @@
 	}>();
 
 	defineEmits<{
-		(e: "updatePage", newPage: number): void
+		updatePage: [newPage: number];
 	}>();
 
 	const getPages = computed<number[]>(() => {

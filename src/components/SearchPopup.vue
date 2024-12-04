@@ -21,8 +21,8 @@
 	}>();
 
 	const emits = defineEmits<{
-		(e: "closePopup"): void;
-		(e: "search", search: string): void;
+		closePopup: [];
+		search: [search: string];
 	}>();
 
 

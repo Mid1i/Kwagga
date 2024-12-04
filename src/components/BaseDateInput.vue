@@ -15,7 +15,7 @@
 	}>();
 
 	const emits = defineEmits<{
-		(e: "changeDate", filter: TypeBookingDateFilters): void;
+		changeDate: [filter: TypeBookingDateFilters];
 	}>();
 
 

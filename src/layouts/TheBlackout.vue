@@ -4,7 +4,7 @@
 	}>();
 
 	const emits = defineEmits<{
-		(e: "closePopup"): boolean
+		closePopup: [];
 	}>();
 
 

@@ -17,7 +17,7 @@
 	}>();
 
 	defineEmits<{
-		(e: "changeElement", filter: TypeBookingFilters): void;
+		changeElement: [filter: TypeBookingFilters];
 	}>();
 
 
