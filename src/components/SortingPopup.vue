@@ -10,6 +10,7 @@
 		activeSorting: string;
 		sortingItems: TypeSorting[];
 		isVisible: boolean;
+		title: string;
 	}>();
 
 	defineEmits<{
@@ -27,7 +28,7 @@
 		<ThePopup
 			@close-popup="$emit('closePopup')"
 			:is-visible="isVisible"	
-			title="Сортировать пользователей"
+			:title="title"
 		>
 			<main class="content">
 				<ul class="content__list">
