@@ -9,8 +9,6 @@ export const usePopup = () => {
 
 	/**
 	 * Скрыть/открыть модальное окно.
-	 * 
-	 * @return {void}
 	 */
 	const togglePopup = (): void => { 
 		isActivePopup.value = !isActivePopup.value;
@@ -24,8 +22,6 @@ export const usePopup = () => {
 		isActivePopup, 
 		/**
 		 * Скрыть/открыть модальное окно.
-		 * 
-		 * @return {void}
 		 */
 		togglePopup 
 	};

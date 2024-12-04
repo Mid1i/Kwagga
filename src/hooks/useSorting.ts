@@ -10,8 +10,7 @@ export const useSorting = (page: Ref<number>) => {
 	/**
 	 * Установить/сбросить сортировку.
 	 * 
-	 * @param {string} value - Текущая сортировка. 
-	 * @return {void}
+	 * @param {string} value - Текущая сортировка.
 	 */
 	const setSorting = (value: string): void => {
 		sorting.value = sorting.value === value ? "" : value;
@@ -27,8 +26,7 @@ export const useSorting = (page: Ref<number>) => {
 		/**
 		 * Установить/сбросить сортировку.
 		 * 
-		 * @param {string} value - Текущая сортировка. 
-		 * @return {void}
+		 * @param {string} value - Текущая сортировка.
 		 */
 		setSorting
 	}
