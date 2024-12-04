@@ -3,6 +3,7 @@
 
 	import DoughnutAnalytics from "@/components/DoughnutAnalytics.vue";
 	import BaseDropdownList from "@/components/BaseDropdownList.vue";
+	import BaseDateInput from "@/components/BaseDateInput.vue";
 	import SortingPopup from "@/components/SortingPopup.vue";
 	import SearchPopup from "@/components/SearchPopup.vue";
 	import Pagination from "@/components/Pagination.vue";
@@ -28,6 +29,18 @@
 
 
 	const getSummary = computed<string>(() => `${bookingsStore.page + 1} страница из ${Math.round(bookingsStore.fillBookings().length / bookingsStore.PAGINATION_SIZE)} (${getWordEnding(bookingsStore.fillBookings().length, "бронь", "брони", "броней")})`);
+
+
+	const applyFilters = () => {
+		bookingsStore.applyFilters();
+		toggleFiltersPopup();
+	};
+
+	const clearFilters = () => {
+		bookingsStore.clearFilters();
+		toggleFiltersPopup();
+	}
+
 
 	const filters = [
 		{
@@ -158,6 +171,7 @@
 		:active-sorting="bookingsStore.sorting"
 		:sorting-items="BOOKING_SORTING_ITEMS"
 		:is-visible="isSortingVisible"
+		title="Сортировать брони"
 	/>
 
 	<TheBlackout
@@ -170,6 +184,48 @@
 			title="Фильтры по броням"
 		>
 			<div class="filters">
+				<section class="filters__date">
+					<h3 class="filters__date-title">Дата создания</h3>
+					<div class="filters__date-row">
+						<div class="filters__date-field">
+							<span class="filters__date-text">С</span>
+							<BaseDateInput
+								@change-date="bookingsStore.updateDateFilters"
+								id="dateOfCreating"
+								step="from"
+							/>
+						</div>
+						<div class="filters__date-field">
+							<span class="filters__date-text">По</span>
+							<BaseDateInput
+								@change-date="bookingsStore.updateDateFilters"
+								id="dateOfCreating"
+								step="to"
+							/>
+						</div>
+					</div>
+				</section>
+				<section class="filters__date">
+					<h3 class="filters__date-title">Дата бронирования</h3>
+					<div class="filters__date-row">
+						<div class="filters__date-field">
+							<span class="filters__date-text">С</span>
+							<BaseDateInput
+								@change-date="bookingsStore.updateDateFilters"
+								id="dateOfBooking"
+								step="from"
+							/>
+						</div>
+						<div class="filters__date-field">
+							<span class="filters__date-text">По</span>
+							<BaseDateInput
+								@change-date="bookingsStore.updateDateFilters"
+								id="dateOfBooking"
+								step="to"
+							/>
+						</div>
+					</div>
+				</section>
 				<BaseDropdownList
 					v-for="filter in filters"
 					@change-element="bookingsStore.updateFilters"
@@ -179,6 +235,10 @@
 					:key="filter.id"
 					:id="filter.id"
 				/>
+				<template v-if="bookingsStore.filters.length > 0 || bookingsStore.dateFilters.length > 0">
+					<button @click="applyFilters" class="filters__button">Применить</button>
+					<button @click="clearFilters" class="filters__cancel">Сбросить</button>
+				</template>
 			</div>
 		</ThePopup>
 	</TheBlackout>
@@ -339,6 +399,60 @@
 		flex: 1 0 auto;
 		flex-direction: column;
 		gap: 2.1vw;
+
+		&__date {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+
+			&-title {
+				color: $text-primary;
+				font-weight: 700;
+				font-size: 0.8vw;
+			}
+
+			&-row {
+				align-items: center;
+				display: flex;
+				gap: 2.6vw;
+			}
+
+			&-field {
+				align-items: center;
+				display: flex;
+				gap: 1vw;
+			}
+
+			&-text {
+				color: $text-secondary;
+				font-size: 0.7vw;
+			}
+		}
+
+		&__button {
+			background: $accent-blue;
+			border: 0.05vw solid transparent;
+			border-radius: 0.25vw;
+
+			color: $text-primary;
+			font-weight: 500;
+			font-size: 0.8vw;
+
+			margin-top: auto;
+
+			height: 2.6vw;
+			width: 100%;
+		}
+
+		&__cancel {
+			align-self: center;
+
+			color: $accent-red;
+			font-weight: 500;
+			font-size: 0.8vw;
+
+			margin-bottom: 2.1vw;
+		}
 	}
 
 
@@ -354,6 +468,14 @@
 			& .main__button-icon {
 				color: $accent-white;
 			}
+		}
+
+		.filters__button:hover {
+			border-color: $text-primary;
+		}
+
+		.filters__cancel:hover {
+			text-decoration: underline;
 		}
 	}
 </style>
