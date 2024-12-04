@@ -1,5 +1,6 @@
 import type { TypeChartColors } from "@/types/TypeChartColors";
-import { TypeSorting } from "@/types/TypeSorting";
+import type { TypeWeekDays } from "@/types/TypeWeekDays";
+import type { TypeSorting } from "@/types/TypeSorting";
 
 
 export const BOOKING_COLORS: TypeChartColors = {
@@ -65,7 +66,6 @@ export const SORTING_ITEMS: TypeSorting[] = [
 	}
 ];
 
-
 export const BOOKING_SORTING_ITEMS: TypeSorting[] = [
 	{
 		icon: "alphabet-asc",
@@ -103,4 +103,6 @@ export const BOOKING_SORTING_ITEMS: TypeSorting[] = [
 		htmlTitle: "Сортировать по дате брони от более поздних к более ранним",
 		value: "dateOfBooking,desc"
 	}
-]
+];
+
+export const CALENDAR_HEADERS: TypeWeekDays[] = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];

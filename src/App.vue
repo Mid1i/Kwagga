@@ -9,6 +9,7 @@
 
 	const { watchStorageTheme } = useTheme();
 
+	
 	onBeforeMount(watchStorageTheme);
 </script>
 
