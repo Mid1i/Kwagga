@@ -1,6 +1,11 @@
 import type { TypeWeekDays } from "@/types/TypeWeekDays";
 
 
+/**
+ * Получение дней недели для графика.
+ * 
+ * @return {TypeWeekDaus[]} Возвращает массив дней для подписи оси графика. 
+ */
 export const getWeekLabels = (): TypeWeekDays[] => {
 	let date = new Date();
 	let days: TypeWeekDays[] = [];
