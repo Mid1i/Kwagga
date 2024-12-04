@@ -52,8 +52,7 @@ export const useUsers = defineStore("users", () => {
 	/**
 	 * Изменение страницы пагинации.
 	 * 
-	 * @param {number} newPage - Новая страница. 
-	 * @return {void}
+	 * @param {number} newPage - Новая страница.
 	 */
 	const updatePage = (newPage: number): void => {
 		page.value = newPage;
@@ -62,8 +61,7 @@ export const useUsers = defineStore("users", () => {
 	/**
 	 * Поиск пользователей по email или id.
 	 * 
-	 * @param {string} search - Текущая величина поиска. 
-	 * @return {void}
+	 * @param {string} search - Текущая величина поиска.
 	 */
 	const searchUsers = (search: string): void => {
 		searchResults.value = search ? fillUsers().filter(item => item.email.includes(search) || item.id === Number(search)) : [];
@@ -72,8 +70,7 @@ export const useUsers = defineStore("users", () => {
 	/**
 	 * Установить/сбросить сортировку по пользователям.
 	 * 
-	 * @param {string} value - Текущая сортировка. 
-	 * @return {void}
+	 * @param {string} value - Текущая сортировка.
 	 */
 	const setSorting = (value: string): void => {
 		sorting.value = sorting.value === value ? "" : value;
@@ -106,7 +103,6 @@ export const useUsers = defineStore("users", () => {
 		 * Изменение страницы пагинации.
 		 * 
 		 * @param {number} newPage - Новая страница пагинации.
-		 * @return {void}
 		 */
 		updatePage,
 		/**
@@ -119,14 +115,12 @@ export const useUsers = defineStore("users", () => {
 		 * Поиск пользователей по email или id.
 		 * 
 		 * @param {string} search - Текущая величина поиска.
-		 * @return {void}
 		 */
 		searchUsers,
 		/**
 		 * Установить/сбросить сортировку.
 		 * 
-		 * @param {string} value - Текущая сортировка. 
-		 * @return {void}
+		 * @param {string} value - Текущая сортировка.
 		 */
 		setSorting
 	}

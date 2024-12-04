@@ -16,8 +16,7 @@ export const useTheme = defineStore("theme", () => {
 	/**
 	 * Смена темы приложения.
 	 * 
-	 * @param {TypeThemes} appTheme - новая тема приложения. 
-	 * @return {void}
+	 * @param {TypeThemes} appTheme - новая тема приложения.
 	 */
 	const switchTheme = (appTheme: TypeThemes):void => {
 		document.documentElement.setAttribute("data-theme", appTheme);
@@ -44,8 +43,7 @@ export const useTheme = defineStore("theme", () => {
 		/**
 		 * Смена темы приложения.
 		 * 
-		 * @param {TypeThemes} appTheme - новая тема приложения. 
-		 * @return {void}
+		 * @param {TypeThemes} appTheme - новая тема приложения.
 		 */
 		switchTheme,
 		/**

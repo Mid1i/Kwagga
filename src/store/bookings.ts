@@ -1,7 +1,7 @@
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 
-import type { TypeBookingFilters } from "@/types/TypeBookingFilters";
+import type { TypeBookingFilters, TypeBookingDateFilters } from "@/types/TypeBookingFilters";
 import type { TypeBookings } from "@/types/TypeBookings";
 
 import { usePagination } from "@/hooks/usePagination";
@@ -34,11 +34,16 @@ export const useBookings = defineStore("bookings", () => {
 	 */
 	const filters = ref<TypeBookingFilters[]>([]);
 
+	/**
+	 * Применённые фильтры, связанные с датами.
+	 */
+	const dateFilters = ref<TypeBookingDateFilters[]>([]);
+
 
 	/**
 	 * Заполнение броней по шаблону (временно).
 	 * 
-	 * @return {TypeBookings[]} - Возвращает массив броней.
+	 * @return {TypeBookings[]} Возвращает массив броней.
 	 */
 	const fillBookings = (): TypeBookings[] => {
 		let bookings = [];
@@ -49,8 +54,7 @@ export const useBookings = defineStore("bookings", () => {
 	/**
 	 * Поиск броней по id.
 	 * 
-	 * @param {string} search - Текущая величина поиска. 
-	 * @return {void}
+	 * @param {string} search - Текущая величина поиска.
 	 */
 	const searchBookings = (search: string): void => {
 		searchResults.value = search ? fillBookings().filter(item => item.id === Number(search)) : [];
@@ -60,21 +64,43 @@ export const useBookings = defineStore("bookings", () => {
 	 * Проверка на существование фильтра.
 	 * 
 	 * @param {TypeBookingFilters} filter - Проверяемый фильтр. 
-	 * @return {boolean} - Возвращает true, если такой фильтр есть, false - если фильтра нет. 
+	 * @return {boolean} Возвращает true, если такой фильтр есть, false - если фильтра нет. 
 	 */
 	const isActiveFilter = (filter: TypeBookingFilters): boolean => !!filters.value.find(item => JSON.stringify(item) === JSON.stringify(filter));
 
 	/**
 	 * Обновление фильтров.
 	 * 
-	 * @param {TypeBookingFilters} filter - Текущий фильтр, содержащий id пространства и id комнаты. 
-	 * @return {void}
+	 * @param {TypeBookingFilters} filter - Текущий фильтр, содержащий id пространства и id комнаты.
 	 */
 	const updateFilters = (filter: TypeBookingFilters): void => {
 		filters.value = isActiveFilter(filter) ? filters.value.filter(item => JSON.stringify(item) !== JSON.stringify(filter)) : [...filters.value, filter];
 	};
 
-	watch(filters, () => console.log(filters.value))
+	/**
+	 * Обновление фильтров, связанных с датами.
+	 * 
+	 * @param {TypeBookingDateFilters} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
+	 */
+	const updateDateFilters = (filter: TypeBookingDateFilters): void => {
+		const isExistingId = dateFilters.value.find(item => item.id === filter.id);
+		dateFilters.value = isExistingId ? dateFilters.value.map(item => item.id === filter.id ? { ...item, ...filter } : item) : [...dateFilters.value, filter];
+	};
+
+	/**
+	 * Сброс всех фильтров.
+	 */
+	const clearFilters = (): void => {
+		dateFilters.value = [];
+		filters.value = [];
+	};
+
+	/**
+	 * Применение фильтров.
+	 */
+	const applyFilters = (): void => {
+		console.log(filters.value, dateFilters.value);
+	}
 
 
 	return {
@@ -82,6 +108,10 @@ export const useBookings = defineStore("bookings", () => {
 		 * Текущие фильтры.
 		 */
 		filters,
+		/**
+		 * Применённые фильтры, связанные с датами.
+		 */
+		dateFilters,
 		/**
 		 * Текущая сортировка.
 		 */
@@ -142,6 +172,21 @@ export const useBookings = defineStore("bookings", () => {
 		 * @param {TypeBookingFilters} filter - Текущий фильтр, содержащий id пространства и id комнаты. 
 		 * @return {void}
 		 */
-		updateFilters
+		updateFilters,
+		/**
+		 * Обновление фильтров, связанных с датами.
+		 * 
+		 * @param {TypeBookingDateFilters} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
+		 * @return {void} 
+		 */
+		updateDateFilters,
+		/**
+		 * Сброс всех фильтров.
+		 */
+		clearFilters,
+		/**
+		 * Применение фильтров.
+		 */
+		applyFilters
 	}
 });
