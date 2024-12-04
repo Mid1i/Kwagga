@@ -112,6 +112,7 @@
 		:active-sorting="usersStore.sorting"
 		:sorting-items="SORTING_ITEMS"
 		:is-visible="isSortingVisible"
+		title="Сортировать пользователей"
 	/>
 </template>
 
