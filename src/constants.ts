@@ -1,5 +1,6 @@
 import type { TypeChartColors } from "@/types/TypeChartColors";
-import type { TypeWeekDays } from "@/types/TypeWeekDays";
+import type { TypeBooking } from "@/types/TypeBookings";
+import type { TypeWeekDay } from "@/types/TypeWeekDays";
 import type { TypeSorting } from "@/types/TypeSorting";
 
 
@@ -105,4 +106,24 @@ export const BOOKING_SORTING_ITEMS: TypeSorting[] = [
 	}
 ];
 
-export const CALENDAR_HEADERS: TypeWeekDays[] = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+export const CALENDAR_HEADERS: TypeWeekDay[] = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+
+export const EMPTY_BOOKING: TypeBooking = {
+	id: 0,
+	user: {
+		id: 0,
+		firstName: "",
+		lastName: "",
+		email: ""
+	},
+	coworkingSpace: {
+		id: 0,
+		name: ""
+	},
+	coworkingPlace: {
+		id: 0,
+		name: ""
+	},
+	dateOfCreating: "",
+	dateOfBooking: ""
+};
