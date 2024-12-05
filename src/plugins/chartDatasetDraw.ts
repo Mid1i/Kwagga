@@ -1,8 +1,8 @@
 import { Chart, Element } from "chart.js";
-import type { TypeThemes } from "@/types/TypeThemes";
+import type { TypeTheme } from "@/types/TypeThemes";
 
 
-export const drawDatasets = (chart: Chart, theme: TypeThemes) => {
+export const drawDatasets = (chart: Chart, theme: TypeTheme) => {
 	const ctx = chart.ctx;
 	
 	ctx.fillStyle = theme === "light" ? "#363949" : "#EDEFFD";

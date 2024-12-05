@@ -1,10 +1,10 @@
 import { ChartConfiguration } from "chart.js";
 
-import type { TypeThemes } from "@/types/TypeThemes";
+import type { TypeTheme } from "@/types/TypeThemes";
 import type { TypeChartColors } from "@/types/TypeChartColors";
 
 
-export const chartConfig = (data: number[], labels: string[], colors: TypeChartColors, theme: TypeThemes): ChartConfiguration => ({
+export const chartConfig = (data: number[], labels: string[], colors: TypeChartColors, theme: TypeTheme): ChartConfiguration => ({
 	type: "line",
 	data: {
 		labels: labels,
