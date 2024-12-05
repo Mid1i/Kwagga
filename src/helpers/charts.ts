@@ -1,4 +1,4 @@
-import type { TypeWeekDays } from "@/types/TypeWeekDays";
+import type { TypeWeekDay } from "@/types/TypeWeekDays";
 
 
 /**
@@ -6,12 +6,12 @@ import type { TypeWeekDays } from "@/types/TypeWeekDays";
  * 
  * @return {TypeWeekDaus[]} Возвращает массив дней для подписи оси графика. 
  */
-export const getWeekLabels = (): TypeWeekDays[] => {
+export const getWeekLabels = (): TypeWeekDay[] => {
 	let date = new Date();
-	let days: TypeWeekDays[] = [];
+	let days: TypeWeekDay[] = [];
 
 	for (let i = 0; i < 6; i++) {
-		const WEEK_DAYS: Record<string, TypeWeekDays> = {
+		const WEEK_DAYS: Record<string, TypeWeekDay> = {
 			0: "Вс",
 			1: "Пн",
 			2: "Вт",
