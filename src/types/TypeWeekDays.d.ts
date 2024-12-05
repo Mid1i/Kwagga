@@ -1,1 +1,1 @@
-export type TypeWeekDays = "Пн" | "Вт" | "Ср" | "Чт" | "Пт" | "Сб" | "Вс";
+export type TypeWeekDay = "Пн" | "Вт" | "Ср" | "Чт" | "Пт" | "Сб" | "Вс";

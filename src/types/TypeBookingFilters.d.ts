@@ -1,10 +1,10 @@
-export type TypeBookingFilters = {
+export type TypeBookingFilter = {
 	spaceId: number;
 	placeId: number;
 };
 
 
-export type TypeBookingDateFilters = {
+export type TypeBookingDateFilter = {
 	id: string;
 	from?: Date;
 	to?: Date;

@@ -1,4 +1,4 @@
-export interface TypeChartColors {
+export type TypeChartColors = {
 	backgroundColor: string;
 	borderColor: string;
 	pointBackgroundColor: string;
