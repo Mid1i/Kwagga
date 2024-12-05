@@ -1,9 +1,11 @@
 <script setup lang="ts">
 	import { computed } from "vue";
+	import type { TypeBooking } from "@/types/TypeBookings";
 
+	import BaseFilterDropdownList from "@/components/BaseFilterDropdownList.vue";
 	import DoughnutAnalytics from "@/components/DoughnutAnalytics.vue";
-	import BaseDropdownList from "@/components/BaseDropdownList.vue";
 	import BaseDateInput from "@/components/BaseDateInput.vue";
+	import BookingPopup from "@/components/BookingPopup.vue";
 	import SortingPopup from "@/components/SortingPopup.vue";
 	import SearchPopup from "@/components/SearchPopup.vue";
 	import Pagination from "@/components/Pagination.vue";
@@ -12,20 +14,25 @@
 	import ThePopup from "@/layouts/ThePopup.vue";
 
 	import { BOOKING_COLORS, BOOKING_SORTING_ITEMS } from "@/constants";
+	import { useActiveBooking } from "@/store/activeBooking";
 	import { chartConfig } from "@/plugins/chartConfig";
 	import { getWeekLabels } from "@/helpers/charts";
+	import { useCoworking } from "@/store/coworking";
 	import { getWordEnding } from "@/helpers/words";
 	import { useBookings } from "@/store/bookings";
 	import { usePopup } from "@/hooks/usePopup";
 	import { useTheme } from "@/store/theme";
 
 
-	const themeStore = useTheme();
+	const coworkingStore = useCoworking();
+	const activeBookingStore = useActiveBooking();
 	const bookingsStore = useBookings();
+	const themeStore = useTheme();
 
 	const { isActivePopup: isSearchVisible, togglePopup: toggleSearchPopup } = usePopup();
 	const { isActivePopup: isSortingVisible, togglePopup: toggleSortingPopup } = usePopup();
 	const { isActivePopup: isFiltersVisible, togglePopup: toggleFiltersPopup } = usePopup();
+	const { isActivePopup: isBookingVisible, togglePopup: toggleBookingPopup } = usePopup();
 
 
 	const getSummary = computed<string>(() => `${bookingsStore.page + 1} страница из ${Math.round(bookingsStore.fillBookings().length / bookingsStore.PAGINATION_SIZE)} (${getWordEnding(bookingsStore.fillBookings().length, "бронь", "брони", "броней")})`);
@@ -39,49 +46,12 @@
 	const clearFilters = () => {
 		bookingsStore.clearFilters();
 		toggleFiltersPopup();
-	}
+	};
 
-
-	const filters = [
-		{
-			id: 1,
-			name: "ИдеяHub",
-			places: [
-				{
-					id: 1,
-					name: "Малая переговорная"
-				},
-				{
-					id: 2,
-					name: "Большая переговорная"
-				}
-			]
-		},
-		{
-			id: 2,
-			name: "TechHub",
-			places: [
-				{
-					id: 1,
-					name: "Стол 1"
-				},
-				{
-					id: 2,
-					name: "Стол 2"
-				}
-			]
-		},
-		{
-			id: 3,
-			name: "BeautyLab",
-			places: [
-				{
-					id: 1,
-					name: "Общий зал"
-				}
-			]
-		}
-	];
+	const clickBooking = (booking: TypeBooking) => {
+		activeBookingStore.booking = booking;
+		toggleBookingPopup();
+	};
 </script>
 
 
@@ -99,14 +69,15 @@
 				</header>
 				<main class="main__bookings">
 					<div 
+						@click="clickBooking(booking)"
 						v-for="booking in bookingsStore.fillBookings().slice(bookingsStore.page * bookingsStore.PAGINATION_SIZE, (bookingsStore.page + 1) * bookingsStore.PAGINATION_SIZE)"
 						:key="booking.id"
 						class="main__bookings-item booking"
 					>
 						<span class="booking__cell">{{ booking.id }}</span>
-						<span class="booking__cell">{{ booking.email }}</span>
-						<span class="booking__cell">{{ booking.coworkingSpace }}</span>
-						<span class="booking__cell">{{ booking.coworkingPlace }}</span>
+						<span class="booking__cell">{{ booking.user.email }}</span>
+						<span class="booking__cell">{{ booking.coworkingSpace.name }}</span>
+						<span class="booking__cell">{{ booking.coworkingPlace.name }}</span>
 						<span class="booking__cell">{{ booking.dateOfCreating }}</span>
 						<span class="booking__cell">{{ booking.dateOfBooking }}</span>
 					</div>
@@ -124,6 +95,11 @@
 		</div>
 		<aside class="main__aside">
 			<div class="main__row">
+				<button @click="() => isBookingVisible = !isBookingVisible" class="main__button" title="Добавить бронь">
+					<svg class="main__button-icon" height="20" width="20">
+						<use xlink:href="@/assets/icons/actions.svg#add"/>
+					</svg>
+				</button>
 				<button @click="() => isSortingVisible = !isSortingVisible" class="main__button" title="Сортировать брони">
 					<svg class="main__button-icon" height="20" width="20">
 						<use xlink:href="@/assets/icons/actions.svg#sort"/>
@@ -172,6 +148,11 @@
 		:sorting-items="BOOKING_SORTING_ITEMS"
 		:is-visible="isSortingVisible"
 		title="Сортировать брони"
+	/>
+
+	<BookingPopup
+		@close-popup="toggleBookingPopup"
+		:is-visible="isBookingVisible"
 	/>
 
 	<TheBlackout
@@ -226,8 +207,8 @@
 						</div>
 					</div>
 				</section>
-				<BaseDropdownList
-					v-for="filter in filters"
+				<BaseFilterDropdownList
+					v-for="filter in coworkingStore.space"
 					@change-element="bookingsStore.updateFilters"
 					:is-active-element="bookingsStore.isActiveFilter"
 					:elements="filter.places"
@@ -341,6 +322,9 @@
 
 			&-icon {
 				color: $accent-blue;
+
+				height: 1vw;
+				width: 1vw;
 			}
 		}
 
@@ -359,6 +343,8 @@
 	}
 
 	.booking {
+		cursor: pointer;
+
 		display: flex;
 		gap: 2.6vw;
 
@@ -434,7 +420,7 @@
 			border: 0.05vw solid transparent;
 			border-radius: 0.25vw;
 
-			color: $text-primary;
+			color: $accent-white;
 			font-weight: 500;
 			font-size: 0.8vw;
 
