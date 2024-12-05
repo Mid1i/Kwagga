@@ -1,10 +1,10 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
-import type { TypeUsers } from "@/types/TypeUsers";
+import type { TypeUser } from "@/types/TypeUsers";
 
 
-const user: TypeUsers = {
+const user: TypeUser = {
 	id: 1,
 	firstName: "Иван",
 	lastName: "Иванов",
@@ -30,7 +30,7 @@ export const useUsers = defineStore("users", () => {
 	/**
 	 * Результаты поиска.
 	 */
-	const searchResults = ref<TypeUsers[]>([]);
+	const searchResults = ref<TypeUser[]>([]);
 
 	/**
 	 * Текущая сортировка.
@@ -41,9 +41,9 @@ export const useUsers = defineStore("users", () => {
 	/**
 	 * Заполнение пользователей по шаблону (временно).
 	 * 
-	 * @return {TypeUsers[]} - Возвращает массив пользователей.
+	 * @return {TypeUser[]} - Возвращает массив пользователей.
 	 */
-	const fillUsers = (): TypeUsers[] => {
+	const fillUsers = (): TypeUser[] => {
 		let users = [];
 		for (let i = 0; i < 53; i++) users.push({...user, id: i + 1});
 		return users;
@@ -108,7 +108,7 @@ export const useUsers = defineStore("users", () => {
 		/**
 		 * Заполнение пользователей по шаблону.
 		 * 
-		 * @return {TypeUsers[]} - Возвращает массив пользователей.
+		 * @return {TypeUser[]} - Возвращает массив пользователей.
 		 */
 		fillUsers,
 		/**

@@ -1,18 +1,29 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
-import type { TypeBookingFilters, TypeBookingDateFilters } from "@/types/TypeBookingFilters";
-import type { TypeBookings } from "@/types/TypeBookings";
+import type { TypeBookingFilter, TypeBookingDateFilter } from "@/types/TypeBookingFilters";
+import type { TypeBooking } from "@/types/TypeBookings";
 
 import { usePagination } from "@/hooks/usePagination";
 import { useSorting } from "@/hooks/useSorting";
 
 
-const booking: TypeBookings = {
+const booking: TypeBooking = {
 	id: 1,
-	email: "example@mail.ru",
-	coworkingSpace: "TechHub",
-	coworkingPlace: "Малая переговорная",
+	user: {
+		id: 4,
+		firstName: "Михаил",
+		lastName: "Чернов",
+		email: "example@mail.ru"
+	},
+	coworkingSpace: {
+		id: 1,
+		name: "TechHub"
+	},
+	coworkingPlace: {
+		id: 1,
+		name: "Малая переговорная"
+	},
 	dateOfCreating: "26.07.2024",
 	dateOfBooking: "26.07.2024"
 };
@@ -27,25 +38,25 @@ export const useBookings = defineStore("bookings", () => {
 	/**
 	 * Результаты поиска.
 	 */
-	const searchResults = ref<TypeBookings[]>([]);
+	const searchResults = ref<TypeBooking[]>([]);
 
 	/**
 	 * Применённые фильтры.
 	 */
-	const filters = ref<TypeBookingFilters[]>([]);
+	const filters = ref<TypeBookingFilter[]>([]);
 
 	/**
 	 * Применённые фильтры, связанные с датами.
 	 */
-	const dateFilters = ref<TypeBookingDateFilters[]>([]);
+	const dateFilters = ref<TypeBookingDateFilter[]>([]);
 
 
 	/**
 	 * Заполнение броней по шаблону (временно).
 	 * 
-	 * @return {TypeBookings[]} Возвращает массив броней.
+	 * @return {TypeBooking[]} Возвращает массив броней.
 	 */
-	const fillBookings = (): TypeBookings[] => {
+	const fillBookings = (): TypeBooking[] => {
 		let bookings = [];
 		for (let i = 0; i < 56; i++) bookings.push({...booking, id: i + 1});
 		return bookings;
@@ -63,26 +74,26 @@ export const useBookings = defineStore("bookings", () => {
 	/**
 	 * Проверка на существование фильтра.
 	 * 
-	 * @param {TypeBookingFilters} filter - Проверяемый фильтр. 
+	 * @param {TypeBookingFilter} filter - Проверяемый фильтр. 
 	 * @return {boolean} Возвращает true, если такой фильтр есть, false - если фильтра нет. 
 	 */
-	const isActiveFilter = (filter: TypeBookingFilters): boolean => !!filters.value.find(item => JSON.stringify(item) === JSON.stringify(filter));
+	const isActiveFilter = (filter: TypeBookingFilter): boolean => !!filters.value.find(item => JSON.stringify(item) === JSON.stringify(filter));
 
 	/**
 	 * Обновление фильтров.
 	 * 
-	 * @param {TypeBookingFilters} filter - Текущий фильтр, содержащий id пространства и id комнаты.
+	 * @param {TypeBookingFilter} filter - Текущий фильтр, содержащий id пространства и id комнаты.
 	 */
-	const updateFilters = (filter: TypeBookingFilters): void => {
+	const updateFilters = (filter: TypeBookingFilter): void => {
 		filters.value = isActiveFilter(filter) ? filters.value.filter(item => JSON.stringify(item) !== JSON.stringify(filter)) : [...filters.value, filter];
 	};
 
 	/**
 	 * Обновление фильтров, связанных с датами.
 	 * 
-	 * @param {TypeBookingDateFilters} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
+	 * @param {TypeBookingDateFilter} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
 	 */
-	const updateDateFilters = (filter: TypeBookingDateFilters): void => {
+	const updateDateFilters = (filter: TypeBookingDateFilter): void => {
 		const isExistingId = dateFilters.value.find(item => item.id === filter.id);
 		dateFilters.value = isExistingId ? dateFilters.value.map(item => item.id === filter.id ? { ...item, ...filter } : item) : [...dateFilters.value, filter];
 	};
@@ -100,7 +111,7 @@ export const useBookings = defineStore("bookings", () => {
 	 */
 	const applyFilters = (): void => {
 		console.log(filters.value, dateFilters.value);
-	}
+	};
 
 
 	return {
@@ -142,7 +153,7 @@ export const useBookings = defineStore("bookings", () => {
 		/**
 		 * Заполнение броней по шаблону.
 		 * 
-		 * @return {TypeBookings[]} - Возвращает массив броней.
+		 * @return {TypeBooking[]} - Возвращает массив броней.
 		 */
 		fillBookings,
 		/**
@@ -162,21 +173,21 @@ export const useBookings = defineStore("bookings", () => {
 		/**
 		 * Проверка на существование фильтра.
 		 * 
-		 * @param {TypeBookingFilters} filter - Проверяемый фильтр. 
+		 * @param {TypeBookingFilter} filter - Проверяемый фильтр. 
 		 * @return {boolean} - Возвращает true, если такой фильтр есть, false - если фильтра нет. 
 		 */
 		isActiveFilter,
 		/**
 		 * Обновление фильтров.
 		 * 
-		 * @param {TypeBookingFilters} filter - Текущий фильтр, содержащий id пространства и id комнаты. 
+		 * @param {TypeBookingFilter} filter - Текущий фильтр, содержащий id пространства и id комнаты. 
 		 * @return {void}
 		 */
 		updateFilters,
 		/**
 		 * Обновление фильтров, связанных с датами.
 		 * 
-		 * @param {TypeBookingDateFilters} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
+		 * @param {TypeBookingDateFilter} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
 		 * @return {void} 
 		 */
 		updateDateFilters,

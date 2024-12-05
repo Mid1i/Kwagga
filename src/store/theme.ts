@@ -1,24 +1,24 @@
 import { ref, Ref } from "vue";
 import { defineStore } from "pinia";
 
-import type { TypeThemes } from "@/types/TypeThemes";
+import type { TypeTheme } from "@/types/TypeThemes";
 
 
 export const useTheme = defineStore("theme", () => {
 	/**
 	 * Текущая тема приложения. По умолчанию - светлая.
 	 * 
-	 * @type {Ref<TypeThemes>}
+	 * @type {Ref<TypeTheme>}
 	 */
-	const theme: Ref<TypeThemes> = ref("light");
+	const theme: Ref<TypeTheme> = ref("light");
 
 
 	/**
 	 * Смена темы приложения.
 	 * 
-	 * @param {TypeThemes} appTheme - новая тема приложения.
+	 * @param {TypeTheme} appTheme - новая тема приложения.
 	 */
-	const switchTheme = (appTheme: TypeThemes):void => {
+	const switchTheme = (appTheme: TypeTheme):void => {
 		document.documentElement.setAttribute("data-theme", appTheme);
 		localStorage.setItem("theme", appTheme);
 		theme.value = appTheme;
@@ -37,13 +37,13 @@ export const useTheme = defineStore("theme", () => {
 		/**
 		 * Текущая тема приложения. По умолчанию - светлая.
 		 * 
-		 * @type {Ref<TypeThemes>}
+		 * @type {Ref<TypeTheme>}
 		 */
 		theme,
 		/**
 		 * Смена темы приложения.
 		 * 
-		 * @param {TypeThemes} appTheme - новая тема приложения.
+		 * @param {TypeTheme} appTheme - новая тема приложения.
 		 */
 		switchTheme,
 		/**
