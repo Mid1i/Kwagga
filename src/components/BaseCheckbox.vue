@@ -35,6 +35,7 @@
 		width: 1vw;
 
 		&:checked::before {
+			color: $text-primary;
 			content: "✔";
 
 			position: absolute;

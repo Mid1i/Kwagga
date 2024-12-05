@@ -1,6 +1,7 @@
 <script setup lang="ts">
-	import { ref, computed, onMounted, onUnmounted } from "vue";
-	import type { TypeBookingDateFilters } from "@/types/TypeBookingFilters";
+	import { ref, computed, onMounted, onUnmounted, watch } from "vue";
+	import type { TypeBookingDateFilter } from "@/types/TypeBookingFilters";
+	import type { TypeBooking } from "@/types/TypeBookings";
 	
 	import BaseCalendar from "@/components/BaseCalendar.vue";
 
@@ -10,12 +11,13 @@
 
 	const props = defineProps<{
 		step: "from" | "to";
-		date?: Date;
+		date?: Date | null;
 		id: string;
 	}>();
 
 	const emits = defineEmits<{
-		changeDate: [filter: TypeBookingDateFilters];
+		changeDate: [filter: TypeBookingDateFilter];
+		updateBooking: [value: TypeBooking[keyof TypeBooking], id: keyof TypeBooking];
 	}>();
 
 
@@ -27,23 +29,32 @@
 	
 	const updateUserDate = (date: Date): void => {
 		emits("changeDate", { id: props.id, [props.step]: date });
+		emits("updateBooking", getFormattedDate.value, props.id as keyof TypeBooking);
+
 		userDate.value = date;
 		togglePopup();
 	};
 
 	const clearUserDate = (): void => {
 		emits("changeDate", { id: props.id, [props.step]: undefined });
+		emits("updateBooking", "", props.id as keyof TypeBooking);
+
 		userDate.value = null;
 		togglePopup();
 	};
 
 	const getFormattedDate = computed<string>(() => userDate.value ? formatDate(userDate.value) : "");
-
+	
 	const clickOutside = (event: MouseEvent): void => {
 		(isActivePopup.value && sectionRef.value && !sectionRef.value.contains(event.target as Node)) && togglePopup();
 	};
 
+	const setDate = (): void => {
+		userDate.value = props.date ? props.date : null;
+	}
 
+
+	watch(() => props.date, setDate);
 	onMounted(() => window.addEventListener("click", clickOutside));
 	onUnmounted(() => window.removeEventListener("click", clickOutside));
 </script>

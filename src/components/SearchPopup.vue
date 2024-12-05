@@ -1,8 +1,8 @@
 <script setup lang="ts">
 	import { computed, ref, watch } from "vue";
 
-	import type { TypeBookings } from "@/types/TypeBookings";
-	import type { TypeUsers } from "@/types/TypeUsers";
+	import type { TypeBooking } from "@/types/TypeBookings";
+	import type { TypeUser } from "@/types/TypeUsers";
 
 	import TheBlackout from "@/layouts/TheBlackout.vue";
 	import ThePopup from "@/layouts/ThePopup.vue";
@@ -14,7 +14,7 @@
 
 
 	const props = defineProps<{
-		searchResults: TypeUsers[] | TypeBookings[];
+		searchResults: TypeUser[] | TypeBooking[];
 		isVisible: boolean;
 		searchText: string;
 		title: string;
@@ -76,7 +76,7 @@
 					<h3 v-if="!searchResults || searchResults.length === 0" class="content__title">{{ !searchModel ? "Здесь будут показаны результаты" : "Ничего не найдено" }}</h3>
 					<template v-else>
 						<h3 class="content__title">{{ generateResultsMessage }}</h3>
-						<ul v-if="isInstanceOf<TypeUsers>(searchResults, 'firstName')" class="content__list">
+						<ul v-if="isInstanceOf<TypeUser>(searchResults, 'firstName')" class="content__list">
 							<li 
 								v-for="user in searchResults"
 								:key="user.id"
@@ -88,13 +88,13 @@
 								<span class="content__list-text lastName">{{ user.lastName }}</span>
 							</li>
 						</ul>
-						<ul v-else-if="isInstanceOf<TypeBookings>(searchResults, 'dateOfBooking')" class="content__list">
+						<ul v-else-if="isInstanceOf<TypeBooking>(searchResults, 'dateOfBooking')" class="content__list">
 							<li 
 								v-for="booking in searchResults"
 								:key="booking.id"
 								class="content__list-el"
 							>
-								<h6 class="content__list-title">{{ booking.email }}</h6>
+								<h6 class="content__list-title">{{ booking.user.email }}</h6>
 								<span class="content__list-text date">На <b>{{ booking.dateOfBooking }}</b></span>
 								<span class="content__list-text firstName">{{ booking.coworkingSpace }}</span>
 								<span class="content__list-text lastName">{{ booking.coworkingPlace }}</span>
