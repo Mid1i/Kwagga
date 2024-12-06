@@ -47,6 +47,8 @@
 		padding: 2.6vw;
 		padding-bottom: 0px;
 
+		overflow: overlay;
+
 		transition: all 0.5s ease-in-out;
 		height: 100%;
 		width: 31.25vw;
