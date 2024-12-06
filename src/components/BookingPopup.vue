@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	import BaseSpaceDropdownList from "@/components/BaseSpaceDropdownList.vue";
 	import BaseDateInput from "@/components/BaseDateInput.vue";
+	import BaseTextarea from "@/components/BaseTextarea.vue";
 	import TheBlackout from "@/layouts/TheBlackout.vue";
 	import BaseInput from "@/components/BaseInput.vue";
 	import ThePopup from "@/layouts/ThePopup.vue";
@@ -66,6 +67,15 @@
 						:date="!!activeBookingStore.booking.dateOfBooking ? convertToDate(activeBookingStore.booking.dateOfBooking) : null"
 						id="dateOfBooking"
 						step="from"
+					/>
+				</section>
+				<section class="booking__section">
+					<h4 class="booking__title">Комментарий к брони</h4>
+					<BaseTextarea
+						v-model="activeBookingStore.booking.comment"
+						name="comment"
+						type="text"
+						text="Комментарий"
 					/>
 				</section>
 				<section class="booking__section">
