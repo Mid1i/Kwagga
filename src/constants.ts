@@ -124,6 +124,7 @@ export const EMPTY_BOOKING: TypeBooking = {
 		id: 0,
 		name: ""
 	},
+	comment: "",
 	dateOfCreating: "",
 	dateOfBooking: ""
 };
