@@ -28,8 +28,8 @@ const routes = [
 		}
 	},
 	{
-		path: "/space",
-		component: () => import("@/pages/Space.vue"),
+		path: "/coworking",
+		component: () => import("@/pages/Coworking.vue"),
 		meta: {
 			titleHtml: "KWAGGA | Коворкинг",
 			title: "Коворкинг"
