@@ -152,11 +152,11 @@
 
 	@media(hover: hover) {
 		.wrapper:hover .wrapper__button {
-			border-color: $text-secondary;
-		}
+			border-color: $accent-blue;
 
-		.wrapper__button-icon:hover {
-			color: $text-primary;
+			& .wrapper__button-icon {
+				color: $accent-blue;
+			}
 		}
 	}
 </style>
