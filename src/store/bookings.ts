@@ -24,6 +24,7 @@ const booking: TypeBooking = {
 		id: 1,
 		name: "Малая переговорная"
 	},
+	comment: "Подальше от входа",
 	dateOfCreating: "26.07.2024",
 	dateOfBooking: "26.07.2024"
 };

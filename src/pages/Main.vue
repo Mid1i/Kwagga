@@ -162,7 +162,7 @@
 				title="Новые пользователи"
 				:config="chartConfig(WEEK_USERS, getWeekLabels(), USERS_COLORS, themeStore.theme)"
 			/>
-			<RouterLink class="main__button" to="/space" title="Перейти к зонам коворкинга">В коворкинг</RouterLink>
+			<RouterLink class="main__button" to="/coworking" title="Перейти к зонам коворкинга">В коворкинг</RouterLink>
 		</aside>
 	</main>
 </template>

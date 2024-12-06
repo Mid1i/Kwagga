@@ -7,6 +7,7 @@ export type TypeBooking = {
 	coworkingPlace: TypeCoworkingPlace;
 	dateOfCreating: string;
 	dateOfBooking: string;
+	comment: string;
 	user: {
 		id: number;
 		email: string;
