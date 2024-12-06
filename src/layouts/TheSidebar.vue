@@ -22,8 +22,8 @@
 				/>
 				<TheSidebarLink
 					icon="sidebar-3"
-					text="Коворкинги"
-					link="/space"
+					text="Коворкинг"
+					link="/coworking"
 				/>
 				<TheSidebarLink
 					icon="sidebar-4"
