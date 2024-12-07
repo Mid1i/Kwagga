@@ -128,3 +128,111 @@ export const EMPTY_BOOKING: TypeBooking = {
 	dateOfCreating: "",
 	dateOfBooking: ""
 };
+
+
+import type { TypeCoworkingSpaceExpanded } from "@/types/TypeCoworking";
+
+export const space: TypeCoworkingSpaceExpanded[] = [
+	{
+		id: 1,
+		active: true,
+		title: "ИдеяHub",
+		description: "Зона для творческих людей, стартаперов и всех, кто нуждается в пространстве для вдохновения и обмена идеями. В 'ИдеяHub' царит непринужденная атмосфера, стильный интерьер и удобные места для работы в команде. Здесь ты найдешь много мягкой мебели, досок для мозговых штурмов и уютные уголки для индивидуальной работы.",
+		conveniences: ["Комфортная мебель", "Удобное расположение", "Гибкость планировки", "Зоны для уединённой работы", "Аудио и видеотехнологии"],
+		dateOfCreating: "24.02.2024",
+		dateOfUpdating: "24.02.2024",
+		address: "г. Нижний Новгород, пл. Минина, д. 24, кв. 202",
+		coordinate: [55.2123123, 44.1241241],
+		scheme: "src/assets/images/scheme.png",
+		images: ["src/assets/images/1.png", "src/assets/images/2.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
+		places: [
+			{
+				id: 1,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Малая переговорная",
+				spaceId: 1,
+				capacity: 12
+			},
+			{
+				id: 2,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Большая переговорная",
+				spaceId: 1,
+				capacity: 25
+			},
+			{
+				id: 3,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Игровая",
+				spaceId: 1,
+				capacity: 4
+			},
+			{
+				id: 4,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Игровая # 2",
+				spaceId: 1,
+				capacity: 4
+			},
+			{
+				id: 5,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Игровая # 3",
+				spaceId: 1,
+				capacity: 4
+			}
+		]
+	},
+	{
+		id: 2,
+		active: false,
+		title: "TechHub",
+		description: "Зона для творческих людей, стартаперов и всех, кто нуждается в пространстве для вдохновения и обмена идеями. В 'ИдеяHub' царит непринужденная атмосфера, стильный интерьер и удобные места для работы в команде. Здесь ты найдешь много мягкой мебели, досок для мозговых штурмов и уютные уголки для индивидуальной работы.",
+		conveniences: ["Комфортная мебель", "Удобное расположение", "Гибкость планировки", "Зоны для уединённой работы", "Аудио и видеотехнологии"],
+		dateOfCreating: "24.02.2024",
+		dateOfUpdating: "24.02.2024",
+		address: "г. Нижний Новгород, пл. Минина, д. 24, кв. 202",
+		coordinate: [55.2123123, 44.1241241],
+		scheme: "src/assets/images/scheme.png",
+		images: ["src/assets/images/1.png", "src/assets/images/2.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
+		places: [
+			{
+				id: 1,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Малая переговорная",
+				spaceId: 1,
+				capacity: 12
+			},
+			{
+				id: 2,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Большая переговорная",
+				spaceId: 1,
+				capacity: 25
+			},
+			{
+				id: 3,
+				active: true,
+				dateOfCreating: "24.02.2024",
+				dateOfUpdating: "24.02.2024",
+				title: "Игровая",
+				spaceId: 1,
+				capacity: 4
+			}
+		]
+	}
+];
