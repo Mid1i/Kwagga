@@ -12,6 +12,7 @@
 	const props = defineProps<{
 		step: "from" | "to";
 		date?: Date | null;
+		isLeft?: boolean;
 		id: string;
 	}>();
 
@@ -80,6 +81,7 @@
 			@update-date="updateUserDate"
 			:is-active="isActivePopup"
 			:user-date="userDate"
+			:is-left="isLeft"
 		/>
 	</div>
 </template>
