@@ -20,6 +20,7 @@
 		:pagination="{ el: '.slider__pagination', clickable: true }"
 		:style="{ 'height': `${height + 2.2}vw`, 'width': `${width}vw` }"
 		:modules="[Navigation, Pagination]"
+		:space-between="10"
 		class="slider__wrapper"
 	>
 		<SwiperSlide
