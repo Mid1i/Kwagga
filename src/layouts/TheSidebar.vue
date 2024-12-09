@@ -26,11 +26,6 @@
 					link="/coworking"
 				/>
 				<TheSidebarLink
-					icon="sidebar-4"
-					text="Аналитика"
-					link="/analytics"
-				/>
-				<TheSidebarLink
 					icon="sidebar-5"
 					text="Брони"
 					link="/bookings"
