@@ -109,9 +109,7 @@ export const BOOKING_SORTING_ITEMS: TypeSorting[] = [
 export const CALENDAR_HEADERS: TypeWeekDay[] = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 export const EMPTY_BOOKING: TypeBooking = {
-	id: 0,
 	user: {
-		id: 0,
 		firstName: "",
 		lastName: "",
 		email: ""
@@ -125,12 +123,22 @@ export const EMPTY_BOOKING: TypeBooking = {
 		name: ""
 	},
 	comment: "",
-	dateOfCreating: "",
 	dateOfBooking: ""
 };
 
+export const EMPTY_SPACE: TypeCoworkingSpaceExpanded = {
+	active: true,
+	title: "",
+	description: "",
+	conveniences: [],
+	address: "",
+	scheme: "",
+	images: [],
+	places: []
+};
 
-import type { TypeCoworkingSpaceExpanded } from "@/types/TypeCoworking";
+
+import type { TypeCoworkingPlaceExpanded, TypeCoworkingSpaceExpanded } from "@/types/TypeCoworking";
 
 export const space: TypeCoworkingSpaceExpanded[] = [
 	{
@@ -152,7 +160,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Малая переговорная",
 				spaceId: 1,
-				capacity: 12
+				capacity: "12"
 			},
 			{
 				id: 2,
@@ -161,7 +169,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Большая переговорная",
 				spaceId: 1,
-				capacity: 25
+				capacity: "25"
 			},
 			{
 				id: 3,
@@ -170,7 +178,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Игровая",
 				spaceId: 1,
-				capacity: 4
+				capacity: "4"
 			},
 			{
 				id: 4,
@@ -179,7 +187,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Игровая # 2",
 				spaceId: 1,
-				capacity: 4
+				capacity: "4"
 			},
 			{
 				id: 5,
@@ -188,7 +196,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Игровая # 3",
 				spaceId: 1,
-				capacity: 4
+				capacity: "4"
 			}
 		]
 	},
@@ -211,7 +219,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Малая переговорная",
 				spaceId: 1,
-				capacity: 12
+				capacity: "12"
 			},
 			{
 				id: 2,
@@ -220,7 +228,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Большая переговорная",
 				spaceId: 1,
-				capacity: 25
+				capacity: "25"
 			},
 			{
 				id: 3,
@@ -229,8 +237,14 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 				dateOfUpdating: "24.02.2024",
 				title: "Игровая",
 				spaceId: 1,
-				capacity: 4
+				capacity: "4"
 			}
 		]
 	}
 ];
+
+export const EMPTY_PLACE: TypeCoworkingPlaceExpanded = {
+	active: true,
+	title: "",
+	capacity: ""
+};
