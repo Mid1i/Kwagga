@@ -10,8 +10,9 @@
 
 
 	const props = defineProps<{
-		isActive: boolean,
-		userDate: Date | null
+		isLeft?: boolean;
+		isActive: boolean;
+		userDate: Date | null;
 	}>();
 
 	defineEmits<{
@@ -70,7 +71,7 @@
 
 
 <template>
-	<div :class="['calendar', { active: isActive }]">
+	<div :class="['calendar', { active: isActive }, { left: isLeft }]">
 		<div :class="['calendar__main', { active: activeMode === 'calendar' && isActive }]">
 			<header class="calendar__header">
 
@@ -156,8 +157,13 @@
 		top: 110%;
 
 		height: 15.1vw;
-		width: 14.3vw;
+		width: 13.3vw;
 		z-index: 10;
+
+		&.left {
+			right: auto;
+			left: 0px;
+		}
 
 		&.active {
 			pointer-events: auto;
