@@ -51,6 +51,8 @@
 								{{ convenience }}
 							</li>
 						</ul>
+						<h3 class="coworking__subtitle">Адрес коворкинг-зоны:</h3>
+						<span class="coworking__text">{{ space.address }}</span>
 					</div>
 					<div class="coworking__slider">
 						<ImagesSlider
@@ -140,7 +142,7 @@
 
 		&__aside {
 			display: flex;
-			flex: 0 0 18vw;
+			flex: 0 0 20vw;
 			flex-direction: column;
 			gap: inherit;
 		}
@@ -253,7 +255,8 @@
 		}
 
 		&__text {
-			color: $text-primary;
+			color: $text-secondary;
+			line-height: 1.2vw;
 			font-size: 0.75vw;
 		}
 
@@ -270,7 +273,7 @@
 				display: flex;
 				gap: 0.5vw;
 	
-				color: $text-primary;
+				color: $text-secondary;
 				font-size: 0.75vw;
 	
 				&::before {
@@ -294,7 +297,7 @@
 		&__button {
 			background: transparent;
 			border: 1px dashed $accent-blue;
-			border-radius: 0.5vw;
+			border-radius: 100%;
 
 			height: 2vw;
 			width: 2vw;
@@ -343,7 +346,7 @@
 			
 			pointer-events: none;
 			overflow: hidden;
-			
+
 			height: auto;
 		}
 
@@ -356,11 +359,11 @@
 			&-list {
 				display: flex;
 				flex-direction: column;
-				gap: 0.5vw;
+				gap: 0.8vw;
 			}
 
 			&-el {
-				color: $text-primary;
+				color: $text-secondary;
 				font-size: 0.8vw;
 
 				list-style: decimal;
