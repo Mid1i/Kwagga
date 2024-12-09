@@ -142,7 +142,6 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 		dateOfCreating: "24.02.2024",
 		dateOfUpdating: "24.02.2024",
 		address: "г. Нижний Новгород, пл. Минина, д. 24, кв. 202",
-		coordinate: [55.2123123, 44.1241241],
 		scheme: "src/assets/images/scheme.png",
 		images: ["src/assets/images/1.png", "src/assets/images/2.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
 		places: [
@@ -202,7 +201,6 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 		dateOfCreating: "24.02.2024",
 		dateOfUpdating: "24.02.2024",
 		address: "г. Нижний Новгород, пл. Минина, д. 24, кв. 202",
-		coordinate: [55.2123123, 44.1241241],
 		scheme: "src/assets/images/scheme.png",
 		images: ["src/assets/images/1.png", "src/assets/images/2.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
 		places: [
