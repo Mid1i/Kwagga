@@ -6,10 +6,15 @@
 
 
 	defineProps<{
+		isEditable?: boolean;
 		altText: string;
 		images: string[];
 		height: number;
 		width: number;
+	}>();
+
+	defineEmits<{
+		deleteImage: [index: number];
 	}>();
 </script>
 
@@ -24,10 +29,20 @@
 		class="slider__wrapper"
 	>
 		<SwiperSlide
-			v-for="image in images"
+			v-for="(image, index) in images"
 			:key="image"
 			class="slider__slide"
 		>
+			<button
+				v-if="isEditable" 
+				@click="$emit('deleteImage', index)"
+				class="slider__delete"
+				title="Удалить изображение"
+			>
+				<svg class="slider__delete-icon" height="15" width="15">
+					<use xlink:href="@/assets/icons/actions.svg#delete"/>
+				</svg>
+			</button>
 			<div class="slider__slide-wrapper">
 				<img
 					:alt="altText"
@@ -62,6 +77,9 @@
 
 		&__slide {
 			cursor: grab;
+
+			position: relative;
+
 			height: calc(100% - 2.2vw);
 			width: 100%;
 
@@ -155,6 +173,31 @@
 				}
 			}
 		}
+
+		&__delete {
+			background: $accent-black;
+			box-shadow: 0px 1.6vw 2.5vw 0px $box-shadow;
+			border-radius: 100%;
+
+			align-items: center;
+			display: flex;
+			justify-content: center;
+
+			position: absolute;
+			right: 0.8vw;
+			top: 0.8vw;
+
+			height: 2vw;
+			width: 2vw;
+
+			z-index: 2;
+
+			&-icon {
+				color: $accent-white;
+				height: 1.2vw;
+				width: 1.2vw;
+			}
+		}
 	}
 
 
@@ -164,6 +207,10 @@
 		}
 
 		.swiper-pagination-bullet:hover {
+			background: $accent-blue;
+		}
+
+		.slider__delete:hover {
 			background: $accent-blue;
 		}
 	}
