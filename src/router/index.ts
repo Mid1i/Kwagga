@@ -36,14 +36,6 @@ const routes = [
 		}
 	},
 	{
-		path: "/analytics",
-		component: () => import("@/pages/Analytics.vue"),
-		meta: {
-			titleHtml: "KWAGGA | Аналитика",
-			title: "Аналитика"
-		}
-	},
-	{
 		path: "/bookings",
 		component: () => import("@/pages/Bookings.vue"),
 		meta: {
