@@ -8,10 +8,10 @@ export type TypeCoworkingPlace = {
 };
 
 export type TypeCoworkingSpaceExpanded = {
-	id: number;
+	id?: number;
 	active: boolean;
-	dateOfCreating: string;
-	dateOfUpdating: string;
+	dateOfCreating?: string;
+	dateOfUpdating?: string;
 	title: string;
 	description: string;
 	address: string;
@@ -22,11 +22,11 @@ export type TypeCoworkingSpaceExpanded = {
 };
 
 export type TypeCoworkingPlaceExpanded = {
-	id: number;
+	id?: number;
 	active: boolean;
-	dateOfCreating: string;
-	dateOfUpdating: string;
+	dateOfCreating?: string;
+	dateOfUpdating?: string;
 	title: string;
-	spaceId: number;
-	capacity: number;
+	spaceId?: number;
+	capacity: string;
 };

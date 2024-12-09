@@ -2,14 +2,14 @@ import type { TypeCoworkingPlace } from "@/types/TypeCoworking";
 
 
 export type TypeBooking = {
-	id: number;
+	id?: number;
 	coworkingSpace: TypeCoworkingPlace;
 	coworkingPlace: TypeCoworkingPlace;
-	dateOfCreating: string;
+	dateOfCreating?: string;
 	dateOfBooking: string;
 	comment: string;
 	user: {
-		id: number;
+		id?: number;
 		email: string;
 		firstName: string;
 		lastName: string;
