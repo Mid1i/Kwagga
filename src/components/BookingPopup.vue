@@ -67,6 +67,7 @@
 						:date="!!activeBookingStore.booking.dateOfBooking ? convertToDate(activeBookingStore.booking.dateOfBooking) : null"
 						id="dateOfBooking"
 						step="from"
+						is-left
 					/>
 				</section>
 				<section class="booking__section">
