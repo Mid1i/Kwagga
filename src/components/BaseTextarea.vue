@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	defineProps<{
+		isTransparent?: boolean;
 		isReadonly?: boolean;
 		name: string;
 		text: string;
@@ -14,7 +15,7 @@
 	<div class="field">
 		<textarea
 			v-model="(localModel as string)"
-			class="field__textarea"
+			:class="['field__textarea', { transparent: isTransparent }]"
 			:readonly="!!isReadonly"
 			:name="name"
 			:id="name"
@@ -66,6 +67,14 @@
 
 			min-height: 5.2vw;
 			width: 100%;
+
+			&.transparent {
+				border-color: $background-primary;
+
+				& + .field__label {
+					background: $background-secondary;
+				}
+			}
 
 			&:read-only {
 				pointer-events: none;
