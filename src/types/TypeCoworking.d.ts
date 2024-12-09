@@ -12,7 +12,6 @@ export type TypeCoworkingSpaceExpanded = {
 	active: boolean;
 	dateOfCreating: string;
 	dateOfUpdating: string;
-	coordinate: [number, number];
 	title: string;
 	description: string;
 	address: string;
