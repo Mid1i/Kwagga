@@ -1,12 +1,18 @@
 <script setup lang="ts">
+	import { onUnmounted } from "vue";
 
 	import DoughnutAnalytics from "@/components/DoughnutAnalytics.vue";
 	import ImagesSlider from "@/components/ImagesSlider.vue";
+	import BaseTextarea from "@/components/BaseTextarea.vue";
+	import BaseInput from "@/components/BaseInput.vue";
 
 	import { useCoworking } from "@/store/coworking";
 
 
 	const coworkingStore = useCoworking();
+
+
+	onUnmounted(coworkingStore.setEditableSpace);
 </script>
 
 
@@ -14,6 +20,227 @@
 	<main class="main">
 		<div class="main__content">
 			<div
+				v-if="coworkingStore.isEditable"
+				class="main__space space"
+			>
+				<header class="space__header">
+					<h3 class="space__title">{{ coworkingStore.editableSpace.id ? `Редактирование коворкинг-зоны '${coworkingStore.editableSpace.title}'` : `Добавление коворкинг-зоны` }}</h3>
+					<div class="space__buttons">
+						<button 
+							@click="coworkingStore.cancel"
+							title="Отменить изменения"
+							class="space__cancel" 
+						>
+							Отменить
+						</button>
+						<button 
+							v-if="!!coworkingStore.editableSpace.id"
+							@click="coworkingStore.saveSpace"
+							title="Сохранить изменения"
+							class="space__button" 
+						>
+							Сохранить
+						</button>
+						<button 
+							v-else
+							@click="coworkingStore.addSpace"
+							title="Добавить коворкинг-зону"
+							class="space__button" 
+						>
+							Добавить
+						</button>
+					</div>
+				</header>
+				<BaseInput
+					v-model="coworkingStore.editableSpace.title"
+					text="Название коворкинг-зоны"
+					name="title"
+					type="text"
+					is-transparent
+				/>
+				<BaseTextarea
+					v-model="coworkingStore.editableSpace.description"
+					text="Описание коворкинг-зоны"
+					name="description"
+					is-transparent
+				/>
+				<BaseInput
+					@apply-suggestion="coworkingStore.setAddress"
+					v-model="coworkingStore.editableSpace.address"
+					:suggestions="coworkingStore.suggestions"
+					text="Адрес коворкинг-зоны"
+					name="address"
+					type="text"
+					is-transparent
+				/>
+				<div class="space__row">
+					<div class="space__conveniences">
+						<h3 class="space__subtitle">
+							Преимущества:
+							<button 
+								@click="coworkingStore.addConvenience('')"
+								class="space__subtitle-add" 
+								title="Добавить"
+							>
+								<svg class="space__subtitle-icon" height="15" width="15">
+									<use xlink:href="@/assets/icons/actions.svg#add"/>
+								</svg>
+							</button>
+						</h3>
+						<ul 
+							v-for="(convenience, index) in coworkingStore.editableSpace.conveniences"
+							:key="index"
+							class="space__list"
+						>
+							<li class="space__list-el">
+								<BaseInput
+									v-model="coworkingStore.editableSpace.conveniences[index]"
+									:name="convenience"
+									is-transparent
+									type="text"
+									text=""
+								/>
+								<button 
+									@click="coworkingStore.deleteConvenience(index)"	
+									class="space__list-button" 
+									title="Удалить"
+								>
+									<svg class="space__list-icon" height="15" width="15">
+										<use xlink:href="@/assets/icons/cross.svg#cross"/>
+									</svg>
+								</button>
+							</li>
+						</ul>
+					</div>
+					<div class="space__images">
+						<h3 class="space__subtitle">
+							{{ `Всего изображений: ${coworkingStore.editableSpace.images.length}` }}
+							<label 
+								class="space__subtitle-add" 
+								title="Добавить"
+								for="photo"
+							>
+								<input
+									@input="coworkingStore.addImage"
+									accept="image/png, image/jpg, image/jpeg, image/svg"
+									class="space__input"
+									type="file"
+									id="photo"
+								/>
+								<svg class="space__subtitle-icon" height="15" width="15">
+									<use xlink:href="@/assets/icons/actions.svg#add"/>
+								</svg>
+							</label>
+						</h3>
+						<ImagesSlider
+							v-if="coworkingStore.editableSpace.images.length > 0"
+							@delete-image="coworkingStore.deleteImage"
+							:images="coworkingStore.editableSpace.images"
+							altText="Изображения коворикнг-зоны"
+							:height="18"
+							:width="30"
+							is-editable
+						/>
+					</div>
+				</div>
+				<div class="space__row">
+					<div :class="['space__places', { big: coworkingStore.editableSpace.places.length > 0 }]">
+						<h3 class="space__subtitle">
+							Доступные для брони места:
+							<button 
+								@click="coworkingStore.addPlace"
+								class="space__subtitle-add"
+								title="Добавить"
+							>
+								<svg class="space__subtitle-icon" height="15" width="15">
+									<use xlink:href="@/assets/icons/actions.svg#add"/>
+								</svg>
+							</button>
+						</h3>
+						<ul 
+							v-for="(place, index) in coworkingStore.editableSpace.places"
+							:key="`place-${index}`"
+							class="space__list"
+						>
+							<li class="space__list-el">
+								<BaseInput
+									v-model="place.title"
+									:name="`title-${index}`"
+									text="Название"
+									is-transparent
+									type="text"
+								/>
+								<BaseInput
+									v-model="place.capacity"
+									:name="`capacity-${index}`"
+									is-transparent
+									type="text"
+									class="space__list-input"
+									text="Вместительность"
+								/>
+								<button 
+									@click="coworkingStore.deletePlace(index)"	
+									class="space__list-button" 
+									title="Удалить"
+								>
+									<svg class="space__list-icon" height="15" width="15">
+										<use xlink:href="@/assets/icons/cross.svg#cross"/>
+									</svg>
+								</button>
+							</li>
+						</ul>
+					</div>
+					<div class="space__scheme">
+						<div
+							v-if="!!coworkingStore.editableSpace.scheme" 
+							class="space__wrapper"
+						>
+							<label 
+								class="space__wrapper-add" 
+								title="Выбрать другую схему"
+								for="scheme"
+							>
+								<input
+									@input="coworkingStore.addScheme"
+									accept="image/png, image/jpg, image/jpeg, image/svg"
+									class="space__wrapper-input"
+									type="file"
+									id="scheme"
+								/>
+								<svg class="space__wrapper-icon" height="15" width="15">
+									<use xlink:href="@/assets/icons/actions.svg#edit"/>
+								</svg>
+								Редактировать
+							</label>
+							<img
+								alt="План-схема коворкинг-зоны"
+								class="space__wrapper-image"
+								:src="coworkingStore.editableSpace.scheme"
+							/>
+						</div>
+						<label
+							v-else 
+							class="space__file"
+							for="scheme"
+						>	
+							<input
+								@input="coworkingStore.addScheme"
+								accept="image/png, image/jpg, image/jpeg, image/svg"
+								class="space__input"
+								id="scheme"
+								type="file"
+							/>
+							<svg class="space__file-icon" height="40" width="40">
+								<use xlink:href="@/assets/icons/actions.svg#download"/>
+							</svg>
+							<h3 class="space__file-title">Загрузка схемы помещения</h3>
+							<span class="space__file-text">Перетащите файл в эту область</span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div
+				v-else
 				v-for="space in coworkingStore.spaceExpanded"
 				:key="space.id" 
 				:class="['main__coworking coworking', { active: space.active }]"
@@ -31,7 +258,11 @@
 						>
 							<span :class="['coworking__switcher-circle', { active: space.active }]"></span>
 						</button>
-						<button class="coworking__button" :title="`Редактировать ${space.title}`">
+						<button 
+							@click="coworkingStore.setEditableSpace(space)"
+							:title="`Редактировать ${space.title}`"
+							class="coworking__button" 
+						>
 							<svg class="coworking__button-icon" height="20" width="20">
 								<use xlink:href="@/assets/icons/actions.svg#edit"/>
 							</svg>
@@ -78,7 +309,7 @@
 								:key="place.id"
 								class="coworking__places-el"
 							>
-								{{ place.title }}
+								{{ `${place.title} (${place.capacity} чел.)` }}
 							</li>
 						</ul>
 					</div>
@@ -86,7 +317,12 @@
 			</div>
 		</div>
 		<aside class="main__aside">
-			<button class="main__button" title="Добавить коворкинг-зону">
+			<button 
+				v-if="!coworkingStore.isEditable"
+				@click="coworkingStore.setAdding" 
+				class="main__button" 
+				title="Добавить коворкинг-зону"
+			>
 				<svg class="main__button-icon" height="20" width="20">
 					<use xlink:href="@/assets/icons/actions.svg#add"/>
 				</svg>
@@ -130,6 +366,7 @@
 
 
 	.main {
+		align-items: stretch;
 		display: flex;
 		gap: 2.1vw;
 
@@ -333,8 +570,7 @@
 	
 				&.active {
 					background: $accent-green;
-					right: 0.1vw;
-					left: auto;
+					transform: translateX(calc(100% + 0.2vw));
 				}
 			}
 		}
@@ -368,6 +604,240 @@
 
 				list-style: decimal;
 				list-style-position: inside;
+			}
+		}
+	}
+
+	.space {
+		@include layout;
+		gap: 1.25vw;
+
+		&__header {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+
+			margin-bottom: 1vw;
+		}
+
+		&__title {
+			color: $text-primary;
+			font-weight: 700;
+			font-size: 1vw;
+		}
+
+		&__buttons {
+			display: flex;
+			gap: 1.25vw;
+		}
+
+		&__button {
+			border: 0.05vw dashed $accent-blue;
+			border-radius: 0.5vw;
+
+			color: $accent-blue;
+			font-weight: 500;
+			font-size: 0.8vw;
+
+			padding: 0.4vw 1.3vw;
+		}
+
+		&__cancel {
+			color: $accent-red;
+			font-weight: 500;
+			font-size: 0.8vw;
+		}
+
+		&__row {
+			align-items: flex-start;
+			display: flex;
+			justify-content: space-between;
+			gap: 2.6vw;
+
+			&:not(:last-child) {
+				margin-bottom: 1vw;
+			}
+		}
+
+		&__subtitle {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+
+			color: $text-primary;
+			font-weight: 700;
+			font-size: 0.8vw;
+
+			&-add {
+				background: $accent-black;
+				border-radius: 100%;
+
+				align-items: center;
+				display: flex;
+				justify-content: center;
+
+				position: relative;
+				cursor: pointer;
+
+				height: 1.55vw;
+				width: 1.55vw;
+			}
+
+			&-icon {
+				color: $accent-white;
+				height: 0.8vw;
+				width: 0.8vw;
+			}
+		}
+
+		&__conveniences,
+		&__places {
+			display: flex;
+			flex: 0 0 18vw;
+			flex-direction: column;
+			gap: 0.8vw;
+		}
+
+		&__places {
+			flex: 0 1 18vw;
+
+			&.big {
+				flex: 1 1 18vw;
+			}
+		}
+
+		&__list {
+			display: flex;
+			flex-direction: column;
+			gap: inherit;
+
+			&-el {
+				align-items: center;
+				display: flex;
+				gap: 1vw;
+			}
+
+			&-button {
+				align-items: center;
+				display: flex;
+				flex: 0 0 auto;
+				justify-content: center;
+
+				height: 1.55vw;
+				width: 1.55vw;
+			}
+
+			&-icon {
+				color: $text-primary;
+				height: 0.8vw;
+				width: 0.8vw;
+			}
+
+			&-input {
+				flex: 0 0 8vw;
+			}
+		}
+
+		&__images {
+			display: flex;
+			flex: 0 0 30vw;
+			flex-direction: column;
+			gap: 0.8vw;
+		}
+
+		&__input {
+			display: none;
+		}
+
+		&__scheme {
+			flex: 0 0 30vw;
+		}
+
+		&__wrapper {
+			border-radius: 0.8vw;
+
+			position: relative;
+			overflow: hidden;
+
+			height: auto;
+			width: 100%;
+
+			&-image {
+				pointer-events: none;
+
+				height: 100%;
+				width: 100%;
+			}
+
+			&-add {
+				background: $accent-black;
+				border-radius: 0.5vw;
+
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				gap: 0.5vw;
+
+				cursor: pointer;
+				color: $accent-white;
+				font-weight: 500;
+				font-size: 0.8vw;
+
+				padding: 0.5vw 1vw;
+
+				position: absolute;
+				right: 0.8vw;
+				top: 0.8vw;
+			}
+
+			&-icon {
+				color: $accent-white;
+
+				height: 0.8vw;
+				width: 0.8vw;
+			}
+
+			&-input {
+				display: none;
+			}
+		}
+
+		&__file {
+			border: 0.05vw solid $box-shadow;
+			border-radius: 0.8vw;
+
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			height: 10vw;
+			width: 100%;
+
+			&:focus {
+				border-color: $accent-blue;
+			}
+
+			&-icon {
+				color: $text-primary;
+
+				margin-bottom: 1vw;
+
+				height: 2vw;
+				width: 2vw;
+			}
+
+			&-title {
+				color: $text-primary;
+				font-weight: 700;
+				font-size: 0.8vw;
+
+				margin-bottom: 0.25vw;
+			}
+
+			&-text {
+				color: $text-primary;
+				font-size: 0.7vw;
 			}
 		}
 	}
@@ -433,6 +903,31 @@
 
 		.rating:hover .rating__text {
 			color: $text-primary;
+		}
+
+		.space__subtitle-add:hover {
+			background: $accent-blue;
+		}
+
+		.space__list-icon:hover {
+			color: $accent-blue;
+		}
+
+		.space__button:hover {
+			background: $accent-blue;
+			color: $accent-white;
+		}
+
+		.space__cancel:hover {
+			text-decoration: underline;
+		}
+
+		.space__wrapper-add:hover {
+			background: $accent-blue;
+		}
+
+		.space__file:hover {
+			border-color: $accent-blue;
 		}
 	}
 </style>
