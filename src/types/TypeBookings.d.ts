@@ -1,17 +1,13 @@
-import type { TypeCoworkingPlace } from "@/types/TypeCoworking";
+import type { TypeCoworkingPlaceList } from "@/types/TypeCoworkingList";
+import type { TypeUser } from "@/types/TypeUsers";
 
 
 export type TypeBooking = {
 	id?: number;
-	coworkingSpace: TypeCoworkingPlace;
-	coworkingPlace: TypeCoworkingPlace;
+	coworkingSpace: TypeCoworkingPlaceList;
+	coworkingPlace: TypeCoworkingPlaceList;
 	dateOfCreating?: string;
 	dateOfBooking: string;
 	comment: string;
-	user: {
-		id?: number;
-		email: string;
-		firstName: string;
-		lastName: string;
-	}
+	user: TypeUser;
 };

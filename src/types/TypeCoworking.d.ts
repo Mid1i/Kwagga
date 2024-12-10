@@ -1,13 +1,4 @@
-export type TypeCoworkingSpace = TypeCoworkingPlace & {
-	places: TypeCoworkingPlace[];
-};
-
-export type TypeCoworkingPlace = {
-	id: number;
-	name: string;
-};
-
-export type TypeCoworkingSpaceExpanded = {
+export type TypeCoworkingSpace = {
 	id?: number;
 	active: boolean;
 	dateOfCreating?: string;
@@ -17,11 +8,11 @@ export type TypeCoworkingSpaceExpanded = {
 	address: string;
 	images: string[];
 	conveniences: string[];
-	scheme: string;
-	places: TypeCoworkingPlaceExpanded[];
+	design: string;
+	places: TypeCoworkingPlace[];
 };
 
-export type TypeCoworkingPlaceExpanded = {
+export type TypeCoworkingPlace = {
 	id?: number;
 	active: boolean;
 	dateOfCreating?: string;

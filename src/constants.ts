@@ -1,21 +1,32 @@
+import type { TypeCoworkingPlace, TypeCoworkingSpace } from "@/types/TypeCoworking";
 import type { TypeChartColors } from "@/types/TypeChartColors";
 import type { TypeBooking } from "@/types/TypeBookings";
 import type { TypeWeekDay } from "@/types/TypeWeekDays";
 import type { TypeSorting } from "@/types/TypeSorting";
+import type { TypeUser } from "@/types/TypeUsers";
 
 
+/**
+ * Цвета для графика по бронированиям.
+ */
 export const BOOKING_COLORS: TypeChartColors = {
 	backgroundColor: "rgb(115, 128, 236, .2)",
 	borderColor: "#7380EC",
 	pointBackgroundColor: "#7380EC"
 };
 
+/**
+ * Цвета для графика по пользователям.
+ */
 export const USERS_COLORS: TypeChartColors = {
 	backgroundColor: "rgb(65, 241, 182, .2)",
 	borderColor: "#41F1B6",
 	pointBackgroundColor: "#41F1B6"
 };
 
+/**
+ * Возможные методы сортировки по пользователям.
+ */
 export const SORTING_ITEMS: TypeSorting[] = [
 	{
 		icon: "alphabet-asc",
@@ -67,6 +78,9 @@ export const SORTING_ITEMS: TypeSorting[] = [
 	}
 ];
 
+/**
+ * Возможные методы сортировки по бронированиям.
+ */
 export const BOOKING_SORTING_ITEMS: TypeSorting[] = [
 	{
 		icon: "alphabet-asc",
@@ -106,8 +120,14 @@ export const BOOKING_SORTING_ITEMS: TypeSorting[] = [
 	}
 ];
 
+/**
+ * Дни недели.
+ */
 export const CALENDAR_HEADERS: TypeWeekDay[] = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
+/**
+ * Пустой шаблон брони.
+ */
 export const EMPTY_BOOKING: TypeBooking = {
 	user: {
 		firstName: "",
@@ -116,31 +136,43 @@ export const EMPTY_BOOKING: TypeBooking = {
 	},
 	coworkingSpace: {
 		id: 0,
-		name: ""
+		title: ""
 	},
 	coworkingPlace: {
 		id: 0,
-		name: ""
+		title: ""
 	},
 	comment: "",
 	dateOfBooking: ""
 };
 
-export const EMPTY_SPACE: TypeCoworkingSpaceExpanded = {
+/**
+ * Пустой шаблон коворкинг-зоны.
+ */
+export const EMPTY_SPACE: TypeCoworkingSpace = {
 	active: true,
 	title: "",
 	description: "",
 	conveniences: [],
 	address: "",
-	scheme: "",
+	design: "",
 	images: [],
 	places: []
 };
 
+/**
+ * Пустой шаблон коворкинг-места.
+ */
+export const EMPTY_PLACE: TypeCoworkingPlace = {
+	active: true,
+	title: "",
+	capacity: ""
+};
 
-import type { TypeCoworkingPlaceExpanded, TypeCoworkingSpaceExpanded } from "@/types/TypeCoworking";
-
-export const space: TypeCoworkingSpaceExpanded[] = [
+/**
+ * Временные коворкинг-зоны (FIXME:).
+ */
+export const space: TypeCoworkingSpace[] = [
 	{
 		id: 1,
 		active: true,
@@ -150,7 +182,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 		dateOfCreating: "24.02.2024",
 		dateOfUpdating: "24.02.2024",
 		address: "г. Нижний Новгород, пл. Минина, д. 24, кв. 202",
-		scheme: "src/assets/images/scheme.png",
+		design: "src/assets/images/scheme.png",
 		images: ["src/assets/images/1.png", "src/assets/images/2.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
 		places: [
 			{
@@ -209,7 +241,7 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 		dateOfCreating: "24.02.2024",
 		dateOfUpdating: "24.02.2024",
 		address: "г. Нижний Новгород, пл. Минина, д. 24, кв. 202",
-		scheme: "src/assets/images/scheme.png",
+		design: "src/assets/images/scheme.png",
 		images: ["src/assets/images/1.png", "src/assets/images/2.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
 		places: [
 			{
@@ -243,8 +275,38 @@ export const space: TypeCoworkingSpaceExpanded[] = [
 	}
 ];
 
-export const EMPTY_PLACE: TypeCoworkingPlaceExpanded = {
-	active: true,
-	title: "",
-	capacity: ""
+/**
+ * Временный пользователь (FIXME:).
+ */
+export const user: TypeUser = {
+	id: 1,
+	firstName: "Иван",
+	lastName: "Иванов",
+	email: "example@mail.ru",
+	bookings: [2, 4, 1, 5, 2],
+	dateOfRegistration: "26.07.2024"
+};
+
+/**
+ * Временные брони (FIXME:).
+ */
+export const booking: TypeBooking = {
+	id: 1,
+	user: {
+		id: 4,
+		firstName: "Михаил",
+		lastName: "Чернов",
+		email: "example@mail.ru"
+	},
+	coworkingSpace: {
+		id: 1,
+		title: "TechHub"
+	},
+	coworkingPlace: {
+		id: 1,
+		title: "Малая переговорная"
+	},
+	comment: "Подальше от входа",
+	dateOfCreating: "26.07.2024",
+	dateOfBooking: "26.07.2024"
 };
