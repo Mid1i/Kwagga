@@ -15,17 +15,17 @@
 
 	import { BOOKING_COLORS, BOOKING_SORTING_ITEMS } from "@/constants";
 	import { useActiveBooking } from "@/store/activeBooking";
+	import { useCoworkingList } from "@/store/coworkingList";
 	import { chartConfig } from "@/plugins/chartConfig";
 	import { getWeekLabels } from "@/helpers/charts";
-	import { useCoworking } from "@/store/coworking";
 	import { getWordEnding } from "@/helpers/words";
 	import { useBookings } from "@/store/bookings";
 	import { usePopup } from "@/hooks/usePopup";
 	import { useTheme } from "@/store/theme";
 
 
-	const coworkingStore = useCoworking();
 	const activeBookingStore = useActiveBooking();
+	const coworkingListStore = useCoworkingList();
 	const bookingsStore = useBookings();
 	const themeStore = useTheme();
 
@@ -76,8 +76,8 @@
 					>
 						<span class="booking__cell">{{ booking.id }}</span>
 						<span class="booking__cell">{{ booking.user.email }}</span>
-						<span class="booking__cell">{{ booking.coworkingSpace.name }}</span>
-						<span class="booking__cell">{{ booking.coworkingPlace.name }}</span>
+						<span class="booking__cell">{{ booking.coworkingSpace.title }}</span>
+						<span class="booking__cell">{{ booking.coworkingPlace.title }}</span>
 						<span class="booking__cell">{{ booking.dateOfCreating }}</span>
 						<span class="booking__cell">{{ booking.dateOfBooking }}</span>
 					</div>
@@ -208,13 +208,13 @@
 					</div>
 				</section>
 				<BaseFilterDropdownList
-					v-for="filter in coworkingStore.space"
+					v-for="{ id, title, places } in coworkingListStore.spaceList"
 					@change-element="bookingsStore.updateFilters"
 					:is-active-element="bookingsStore.isActiveFilter"
-					:elements="filter.places"
-					:name="filter.name"
-					:key="filter.id"
-					:id="filter.id"
+					:elements="places"
+					:name="title"
+					:key="id"
+					:id="id"
 				/>
 				<template v-if="bookingsStore.filters.length > 0 || bookingsStore.dateFilters.length > 0">
 					<button @click="applyFilters" class="filters__button">Применить</button>
