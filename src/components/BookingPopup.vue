@@ -7,8 +7,8 @@
 	import ThePopup from "@/layouts/ThePopup.vue";
 
 	import { useActiveBooking } from "@/store/activeBooking";
+	import { useCoworkingList } from "@/store/coworkingList";
 	import { convertToDate } from "@/helpers/converters";
-	import { useCoworking } from "@/store/coworking";
 
 
 	defineProps<{
@@ -21,7 +21,8 @@
 
 
 	const activeBookingStore = useActiveBooking();
-	const coworkingStore = useCoworking();
+	const coworkingListStore = useCoworkingList();
+
 
 	const cancel = () => {
 		emit("closePopup");
@@ -47,16 +48,16 @@
 					<BaseSpaceDropdownList
 						@change-element="activeBookingStore.updateBooking"
 						:is-active-element="activeBookingStore.isActiveSpace"
-						:name="activeBookingStore.booking.coworkingSpace.name || 'Выберите пространство'"
-						:elements="coworkingStore.getSpace"
+						:name="activeBookingStore.booking.coworkingSpace.title || 'Выберите пространство'"
+						:elements="coworkingListStore.getSpaceList"
 						id="coworkingSpace"
 					/>
 					<BaseSpaceDropdownList
 						v-if="!!activeBookingStore.booking.coworkingSpace.id"
 						@change-element="activeBookingStore.updateBooking"
 						:is-active-element="activeBookingStore.isActivePlace"
-						:name="activeBookingStore.booking.coworkingPlace.name || 'Выберите место'"
-						:elements="coworkingStore.getPlaces(activeBookingStore.booking.coworkingSpace.id)"
+						:name="activeBookingStore.booking.coworkingPlace.title || 'Выберите место'"
+						:elements="coworkingListStore.getPlaceList(activeBookingStore.booking.coworkingSpace.id)"
 						id="coworkingPlace"
 					/>
 				</section>

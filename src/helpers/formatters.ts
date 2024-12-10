@@ -5,9 +5,8 @@ import { addLeadingZeros } from "@/helpers/words";
 
 /**
  * Получение названия месяца по его номеру.
- * 
  * @param {number} month - Номер месяца. 
- * @return {string} - Возвращает название месяца. 
+ * @return {string} Название месяца. 
  */
 export const formatMonth = (month: number): string => {
 	const months: Record<number, string> = {
@@ -29,18 +28,16 @@ export const formatMonth = (month: number): string => {
 };
 
 /**
- * Форматирование даты в формат "ДД.ММ.ГГГГ".
- * 
+ * Форматирование даты в формат `ДД.ММ.ГГГГ`.
  * @param {Date} date - Дата для форматирования. 
- * @return {string} Возвращает дату в формате "ДД.ММ.ГГГГ". 
+ * @return {string} Дата в формате `ДД.ММ.ГГГГ`. 
  */
 export const formatDate = (date: Date): string => `${addLeadingZeros(date.getDate())}.${addLeadingZeros(date.getMonth() + 1)}.${addLeadingZeros(date.getFullYear())}`;
 
 /**
- * Форматирование адреса в формат "Страна, округ, город, дом, квартира".
- * 
+ * Форматирование адреса в формат `Страна, округ, город, дом, квартира`.
  * @param {TypeDadataInformation} suggest - Объект с сервиса Dadata, содержащий всю информацию об адресе. 
- * @return {string} Возвращает адрес в формате "Страна, округ, город, дом, квартира".
+ * @return {string} Адрес в формате `Страна, округ, город, дом, квартира`.
  */
 export const formatAddress = (suggest: TypeDadataInformation): string => {
 	const address = {

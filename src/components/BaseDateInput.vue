@@ -22,12 +22,28 @@
 	}>();
 
 
+	/**
+	 * Выбранная дата или `null`.
+	 */
 	const userDate = ref<Date | null>(props.date || null);
+
+	/**
+	 * Ref области (для обработки клика вне неё).
+	 */
 	const sectionRef = ref<HTMLDivElement | null>(null);
 	
 
 	const { isActivePopup, togglePopup } = usePopup();
+
+	/**
+	 * Получение отфарматированной даты в формате `ДД.ММ.ГГГГ`.
+	 */
+	 const getFormattedDate = computed<string>(() => userDate.value ? formatDate(userDate.value) : "");
 	
+	/**
+	 * Изменение выбранной даты.
+	 * @param {Date} date - Новая дата. 
+	 */
 	const updateUserDate = (date: Date): void => {
 		emits("changeDate", { id: props.id, [props.step]: date });
 		emits("updateBooking", getFormattedDate.value, props.id as keyof TypeBooking);
@@ -36,6 +52,9 @@
 		togglePopup();
 	};
 
+	/**
+	 * Сброс выбранной даты.
+	 */
 	const clearUserDate = (): void => {
 		emits("changeDate", { id: props.id, [props.step]: undefined });
 		emits("updateBooking", "", props.id as keyof TypeBooking);
@@ -43,16 +62,21 @@
 		userDate.value = null;
 		togglePopup();
 	};
-
-	const getFormattedDate = computed<string>(() => userDate.value ? formatDate(userDate.value) : "");
 	
+	/**
+	 * Обработка клика вне области.
+	 * @param {MouseEvent} event - Событие клика. 
+	 */
 	const clickOutside = (event: MouseEvent): void => {
 		(isActivePopup.value && sectionRef.value && !sectionRef.value.contains(event.target as Node)) && togglePopup();
 	};
 
+	/**
+	 * Установка даты при её изменении на родительском уровне.
+	 */
 	const setDate = (): void => {
 		userDate.value = props.date ? props.date : null;
-	}
+	};
 
 
 	watch(() => props.date, setDate);

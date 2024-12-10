@@ -15,14 +15,8 @@ export const usePopup = () => {
 	};
 
 
-	return { 
-		/**
-		 * Видно ли модальное окно или нет.
-		 */
-		isActivePopup, 
-		/**
-		 * Скрыть/открыть модальное окно.
-		 */
+	return {
+		isActivePopup,
 		togglePopup 
 	};
 }

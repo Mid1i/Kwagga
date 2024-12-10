@@ -6,7 +6,7 @@
  * @param {number} two - Форма слова, используемая с числами 2, 3, 4 (например, дня).
  * @param {number} five Форма слова, используемая с числами 5 и более (например, дней).
  * 
- * @return {string} Возвращает правильную форму слова в зависимости от количества.
+ * @return {string} Правильная форма слова в зависимости от количества.
  */
 export const getWordEnding = (amount: number, one: string, two: string, five: string): string => {
 	const exceptionsCondition: boolean = amount === 11 || amount === 12 || amount === 13;
@@ -21,9 +21,7 @@ export const getWordEnding = (amount: number, one: string, two: string, five: st
 
 /**
  * Добавление ведущих нулей к числу, состоящего из одной цифры, чтобы привести его к двухзначному формату.
- * 
- * @param {number} num - Текущee число. 
- * 
- * @return {string} Возвращает строку, представляющую число в двухзначном формате.
+ * @param {number} num - Текущee число.
+ * @return {string} Строка, представляющую число в двухзначном формате.
  */
 export const addLeadingZeros = (num: number): string => num.toString().padStart(2, "0");
