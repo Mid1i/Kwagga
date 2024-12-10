@@ -1,8 +1,8 @@
 export type TypeUser = {
-	id: number;
+	id?: number;
 	firstName: string;
 	lastName: string;
 	email: string;
-	bookings: number[];
-	dateOfRegistration: string;
+	bookings?: number[];
+	dateOfRegistration?: string;
 };

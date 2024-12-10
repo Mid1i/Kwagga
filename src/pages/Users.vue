@@ -49,7 +49,7 @@
 						<span class="user__cell">{{ user.firstName }}</span>
 						<span class="user__cell">{{ user.lastName }}</span>
 						<span class="user__cell">{{ user.email }}</span>
-						<span class="user__cell">{{ user.bookings.length }}</span>
+						<span class="user__cell">{{ user.bookings?.length || "-" }}</span>
 						<span class="user__cell">{{ user.dateOfRegistration }}</span>
 					</div>
 				</main>
