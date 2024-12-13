@@ -11,7 +11,7 @@ export const useUsers = defineStore("users", () => {
 	/**
    * Массив новых пользователей для недельного графика.
    */
-	const WEEK_USERS: number[] = [8, 10, 10, 34, 20, 53, 15];
+	const WEEK_USERS: number[] = [2, 1, 1, 0, 0, 3, 2];
 
 	/**
 	 * Кол-во пользователей, отображаемых на странице в пагинации.
@@ -35,7 +35,7 @@ export const useUsers = defineStore("users", () => {
 	 * Временное заполнение пользователей по шаблону (FIXME:).
 	 * @return {TypeUser[]} Массив пользователей.
 	 */
-	const fillUsers = (): TypeUser[] => Array.from({ length: 53 }, (_, index) => ({ ...user, id: index + 1 }));
+	const fillUsers = (): TypeUser[] => Array.from({ length: 15 }, (_, index) => ({ ...user, id: index + 1 }));
 
 	/**
 	 * Изменение страницы пагинации.

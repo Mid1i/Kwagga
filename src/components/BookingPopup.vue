@@ -86,7 +86,6 @@
 						<div class="booking__field">
 							<BaseInput
 								v-model="activeBookingStore.booking.user.firstName"
-								:is-readonly="!!activeBookingStore.booking.user.firstName"
 								name="firstName"
 								type="text"
 								text="Имя"
@@ -94,7 +93,6 @@
 						</div>
 						<BaseInput
 							v-model="activeBookingStore.booking.user.lastName"
-							:is-readonly="!!activeBookingStore.booking.user.lastName"
 							name="lastName"
 							type="text"
 							text="Фамилия"
@@ -102,7 +100,6 @@
 					</div>
 					<BaseInput
 						v-model="activeBookingStore.booking.user.email"
-						:is-readonly="!!activeBookingStore.booking.user.email"
 						name="email"
 						type="email"
 						text="Email"

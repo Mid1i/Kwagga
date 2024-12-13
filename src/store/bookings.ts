@@ -10,7 +10,7 @@ import { booking } from "@/constants";
 
 
 export const useBookings = defineStore("bookings", () => {
-	const WEEK_BOOKINGS: number[] = [8, 10, 10, 34, 20, 53, 15];
+	const WEEK_BOOKINGS: number[] = [12, 20, 17, 19, 10, 7, 14];
 
 	const { page, PAGINATION_SIZE, updatePage } = usePagination();
 	const { sorting, setSorting } = useSorting(page);
@@ -19,6 +19,8 @@ export const useBookings = defineStore("bookings", () => {
 	 * Результаты поиска.
 	 */
 	const searchResults = ref<TypeBooking[]>([]);
+
+	const bookings = ref<TypeBooking[]>(Array.from({ length: 10 }, (_, i) => ({ ...booking, id: i + 1 })));
 
 	/**
 	 * Применённые фильтры.
@@ -35,7 +37,7 @@ export const useBookings = defineStore("bookings", () => {
 	 * Заполнение броней по шаблону (FIXME:).
 	 * @return {TypeBooking[]} Массив броней.
 	 */
-	const fillBookings = (): TypeBooking[] => Array.from({ length: 56 }, (_, i) => ({ ...booking, id: i + 1 }));
+	const fillBookings = (): TypeBooking[] => Array.from({ length: 10 }, (_, i) => ({ ...booking, id: i + 1 }));
 
 	/**
 	 * Поиск броней по `id`.
@@ -87,6 +89,7 @@ export const useBookings = defineStore("bookings", () => {
 
 	return {
 		WEEK_BOOKINGS,
+		bookings,
 		PAGINATION_SIZE,
 		searchResults,
 		dateFilters,
@@ -95,7 +98,7 @@ export const useBookings = defineStore("bookings", () => {
 		page,
 		setSorting,
 		updatePage,
-		fillBookings,
+		// fillBookings,
 		searchBookings,
 		updateFilters,
 		isActiveFilter,

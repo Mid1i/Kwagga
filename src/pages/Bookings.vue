@@ -35,7 +35,7 @@
 	const { isActivePopup: isBookingVisible, togglePopup: toggleBookingPopup } = usePopup();
 
 
-	const getSummary = computed<string>(() => `${bookingsStore.page + 1} страница из ${Math.round(bookingsStore.fillBookings().length / bookingsStore.PAGINATION_SIZE)} (${getWordEnding(bookingsStore.fillBookings().length, "бронь", "брони", "броней")})`);
+	const getSummary = computed<string>(() => `${bookingsStore.page + 1} страница из ${Math.round(bookingsStore.bookings.length / bookingsStore.PAGINATION_SIZE)} (${getWordEnding(bookingsStore.bookings.length, "бронь", "брони", "броней")})`);
 
 
 	const applyFilters = () => {
@@ -70,7 +70,7 @@
 				<main class="main__bookings">
 					<div 
 						@click="clickBooking(booking)"
-						v-for="booking in bookingsStore.fillBookings().slice(bookingsStore.page * bookingsStore.PAGINATION_SIZE, (bookingsStore.page + 1) * bookingsStore.PAGINATION_SIZE)"
+						v-for="booking in bookingsStore.bookings.slice(bookingsStore.page * bookingsStore.PAGINATION_SIZE, (bookingsStore.page + 1) * bookingsStore.PAGINATION_SIZE)"
 						:key="booking.id"
 						class="main__bookings-item booking"
 					>
@@ -84,10 +84,10 @@
 				</main>
 				<footer class="main__footer">
 					<Pagination
-						v-if="Math.round(bookingsStore.fillBookings().length / bookingsStore.PAGINATION_SIZE) > 1"
+						v-if="Math.round(bookingsStore.bookings.length / bookingsStore.PAGINATION_SIZE) > 1"
 						@update-page="bookingsStore.updatePage"
 						:current-page="bookingsStore.page"
-						:pages="Math.round(bookingsStore.fillBookings().length / bookingsStore.PAGINATION_SIZE)"
+						:pages="Math.round(bookingsStore.bookings.length / bookingsStore.PAGINATION_SIZE)"
 					/>
 					<span class="main__summary">{{ getSummary }}</span>
 				</footer>

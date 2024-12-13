@@ -17,8 +17,8 @@
 	}>();
 
 	const emits = defineEmits<{
-		changeDate: [filter: TypeBookingDateFilter];
 		updateBooking: [value: TypeBooking[keyof TypeBooking], id: keyof TypeBooking];
+		changeDate: [filter: TypeBookingDateFilter];
 	}>();
 
 
@@ -45,6 +45,8 @@
 	 * @param {Date} date - Новая дата. 
 	 */
 	const updateUserDate = (date: Date): void => {
+		userDate.value = date;
+
 		emits("changeDate", { id: props.id, [props.step]: date });
 		emits("updateBooking", getFormattedDate.value, props.id as keyof TypeBooking);
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-	import { onUnmounted } from "vue";
-
 	import DoughnutAnalytics from "@/components/DoughnutAnalytics.vue";
 	import ImagesSlider from "@/components/ImagesSlider.vue";
 	import BaseTextarea from "@/components/BaseTextarea.vue";
@@ -10,9 +8,6 @@
 
 
 	const coworkingStore = useCoworking();
-
-
-	onUnmounted(coworkingStore.setEditableSpace);
 </script>
 
 

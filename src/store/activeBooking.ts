@@ -3,10 +3,13 @@ import { ref } from "vue";
 
 import type { TypeBooking } from "@/types/TypeBookings";
 
+import { useBookings } from '@/store/bookings';
 import { EMPTY_BOOKING } from "@/constants";
 
 
 export const useActiveBooking = defineStore("active-booking", () => {
+	const bookingsStore = useBookings();
+
 	/**
 	 * Текущее выбранное бронирование.
 	 */
@@ -61,7 +64,8 @@ export const useActiveBooking = defineStore("active-booking", () => {
 	 * Добавление брони (через бекэнд).
 	 */
 	const addBooking = (): void => {
-		console.log(`Бронь добавленаЖ ${booking.value}`);
+		bookingsStore.bookings.push({ ...booking.value, id: bookingsStore.bookings.length, dateOfCreating: "14.12.2024" });
+		booking.value = EMPTY_BOOKING;
 	};
 
 
