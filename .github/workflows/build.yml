@@ -46,7 +46,7 @@ jobs:
             echo "$var" >> $GITHUB_ENV
           done
       - name: Install dependencies
-        run: npm run install
+        run: npm install
       - name: Build application
         if: env.IS_NEW_RELEASE == 'true'
         run: npm run build
