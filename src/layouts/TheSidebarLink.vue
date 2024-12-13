@@ -20,7 +20,7 @@
 		:to="link" 
 	>
 		<svg class="link__icon" height="16" width="16">
-			<use :xlink:href="`src/assets/icons/sidebar.svg#${icon}`"/>
+			<use :xlink:href="`/icons/sidebar.svg#${icon}`"/>
 		</svg>
 		{{ text }}
 	</RouterLink>

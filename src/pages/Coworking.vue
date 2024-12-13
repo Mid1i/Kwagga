@@ -79,7 +79,7 @@
 								title="Добавить"
 							>
 								<svg class="space__subtitle-icon" height="15" width="15">
-									<use xlink:href="@/assets/icons/actions.svg#add"/>
+									<use xlink:href="/icons/actions.svg#add"/>
 								</svg>
 							</button>
 						</h3>
@@ -102,7 +102,7 @@
 									title="Удалить"
 								>
 									<svg class="space__list-icon" height="15" width="15">
-										<use xlink:href="@/assets/icons/cross.svg#cross"/>
+										<use xlink:href="/icons/cross.svg#cross"/>
 									</svg>
 								</button>
 							</li>
@@ -124,7 +124,7 @@
 									id="photo"
 								/>
 								<svg class="space__subtitle-icon" height="15" width="15">
-									<use xlink:href="@/assets/icons/actions.svg#add"/>
+									<use xlink:href="/icons/actions.svg#add"/>
 								</svg>
 							</label>
 						</h3>
@@ -149,7 +149,7 @@
 								title="Добавить"
 							>
 								<svg class="space__subtitle-icon" height="15" width="15">
-									<use xlink:href="@/assets/icons/actions.svg#add"/>
+									<use xlink:href="/icons/actions.svg#add"/>
 								</svg>
 							</button>
 						</h3>
@@ -180,7 +180,7 @@
 									title="Удалить"
 								>
 									<svg class="space__list-icon" height="15" width="15">
-										<use xlink:href="@/assets/icons/cross.svg#cross"/>
+										<use xlink:href="/icons/cross.svg#cross"/>
 									</svg>
 								</button>
 							</li>
@@ -204,7 +204,7 @@
 									id="scheme"
 								/>
 								<svg class="space__wrapper-icon" height="15" width="15">
-									<use xlink:href="@/assets/icons/actions.svg#edit"/>
+									<use xlink:href="/icons/actions.svg#edit"/>
 								</svg>
 								Редактировать
 							</label>
@@ -227,7 +227,7 @@
 								type="file"
 							/>
 							<svg class="space__file-icon" height="40" width="40">
-								<use xlink:href="@/assets/icons/actions.svg#download"/>
+								<use xlink:href="/icons/actions.svg#download"/>
 							</svg>
 							<h3 class="space__file-title">Загрузка схемы помещения</h3>
 							<span class="space__file-text">Перетащите файл в эту область</span>
@@ -261,7 +261,7 @@
 							class="coworking__button" 
 						>
 							<svg class="coworking__button-icon" height="20" width="20">
-								<use xlink:href="@/assets/icons/actions.svg#edit"/>
+								<use xlink:href="/icons/actions.svg#edit"/>
 							</svg>
 						</button>
 					</div>
@@ -321,7 +321,7 @@
 				title="Добавить коворкинг-зону"
 			>
 				<svg class="main__button-icon" height="20" width="20">
-					<use xlink:href="@/assets/icons/actions.svg#add"/>
+					<use xlink:href="/icons/actions.svg#add"/>
 				</svg>
 			</button>
 			<div class="main__analytics">

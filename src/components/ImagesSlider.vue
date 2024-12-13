@@ -40,7 +40,7 @@
 				title="Удалить изображение"
 			>
 				<svg class="slider__delete-icon" height="15" width="15">
-					<use xlink:href="@/assets/icons/actions.svg#delete"/>
+					<use xlink:href="/icons/actions.svg#delete"/>
 				</svg>
 			</button>
 			<div class="slider__slide-wrapper">
@@ -55,12 +55,12 @@
 			<div v-if="images.length < 12" class="slider__pagination"></div>
 			<div class="slider__button slider__button--prev" title="Следующее фото">
 				<svg class="slider__button-icon" height="20" width="20">
-					<use xlink:href="@/assets/icons/slider.svg#arrow-left"/>
+					<use xlink:href="/icons/slider.svg#arrow-left"/>
 				</svg>
 			</div>
 			<div class="slider__button slider__button--next" titl="Предыдущее фото">
 				<svg class="slider__button-icon" height="20" width="20">
-					<use xlink:href="@/assets/icons/slider.svg#arrow-right"/>
+					<use xlink:href="/icons/slider.svg#arrow-right"/>
 				</svg>
 			</div>
 		</div>

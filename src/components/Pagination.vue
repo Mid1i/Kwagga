@@ -35,7 +35,7 @@
 			class="pagination__button"
 		>
 			<svg class="pagination__button-icon" height="20" width="20">
-				<use xlink:href="@/assets/icons/pagination.svg#arrow-beginning"/>
+				<use xlink:href="/icons/pagination.svg#arrow-beginning"/>
 			</svg>
 		</button>
 		<button 
@@ -45,7 +45,7 @@
 			class="pagination__button"
 		>
 			<svg class="pagination__button-icon" height="20" width="20">
-				<use xlink:href="@/assets/icons/pagination.svg#arrow-back"/>
+				<use xlink:href="/icons/pagination.svg#arrow-back"/>
 			</svg>
 		</button>
 		<ul class="pagination__list">
@@ -66,7 +66,7 @@
 			class="pagination__button"
 		>
 			<svg class="pagination__button-icon" height="20" width="20">
-				<use xlink:href="@/assets/icons/pagination.svg#arrow-forward"/>
+				<use xlink:href="/icons/pagination.svg#arrow-forward"/>
 			</svg>
 		</button>
 		<button 
@@ -76,7 +76,7 @@
 			class="pagination__button"
 		>
 			<svg class="pagination__button-icon" height="20" width="20">
-				<use xlink:href="@/assets/icons/pagination.svg#arrow-end"/>
+				<use xlink:href="/icons/pagination.svg#arrow-end"/>
 			</svg>
 		</button>
 	</div>

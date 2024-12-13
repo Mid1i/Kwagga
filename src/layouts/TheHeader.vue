@@ -30,7 +30,7 @@
 					title="Светлая тема"
 				>
 					<svg class="header__theme-icon" height="18" width="18">
-						<use xlink:href="@/assets/icons/theme.svg#theme-light"/>
+						<use xlink:href="/icons/theme.svg#theme-light"/>
 					</svg>
 				</button>
 				<button 
@@ -39,7 +39,7 @@
 					title="Тёмная тема"
 				>
 					<svg class="header__theme-icon" height="18" width="18">
-						<use xlink:href="@/assets/icons/theme.svg#theme-dark"/>
+						<use xlink:href="/icons/theme.svg#theme-dark"/>
 					</svg>
 				</button>
 			</div>
@@ -50,7 +50,7 @@
 				</span>
 				<button @click="togglePopup" class="header__account-button" title="Открыть аккаунт">
 					<svg class="header__account-icon" height="24" width="24">
-						<use xlink:href="@/assets/icons/account.svg#account"/>
+						<use xlink:href="/icons/account.svg#account"/>
 					</svg>
 				</button>
 				<div @click="togglePopup" :class="['header__account-popup account', { active: isActivePopup }]">

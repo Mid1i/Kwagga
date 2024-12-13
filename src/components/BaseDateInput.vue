@@ -92,7 +92,7 @@
 		<button @click="togglePopup" class="wrapper__button">
 			{{ getFormattedDate }}
 			<svg class="wrapper__button-icon" height="20" width="18">
-				<use xlink:href="@/assets/icons/calendar.svg#calendar"/>
+				<use xlink:href="/icons/calendar.svg#calendar"/>
 			</svg>
 		</button>
 		<button 
@@ -100,7 +100,7 @@
 			:class="['wrapper__cross', { active: !!userDate }]"
 		>
 			<svg class="wrapper__cross-icon" height="20" width="20">
-				<use xlink:href="@/assets/icons/calendar.svg#cross"/>
+				<use xlink:href="/icons/calendar.svg#cross"/>
 			</svg>
 		</button>
 		<BaseCalendar

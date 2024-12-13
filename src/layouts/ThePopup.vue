@@ -21,7 +21,7 @@
 			<h2 class="popup__header-title">{{ title }}</h2>
 			<button @click="$emit('closePopup')" class="popup__header-button" title="Закрыть модальное окно">
 				<svg class="popup__header-icon" height="20" width="20">
-					<use xlink:href="@/assets/icons/cross.svg#cross"/>
+					<use xlink:href="/icons/cross.svg#cross"/>
 				</svg>
 			</button>
 		</header>
