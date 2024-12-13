@@ -1,5 +1,5 @@
 const { release } = require('os');
-const { generateVersionEnv } = require('./create-version.js');
+const { generateVersionEnv } = require('./create-version.сjs');
 
 module.exports = {
     branches: [
