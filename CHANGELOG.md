@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/Mid1i/Kwagga/compare/v1.0.4...v1.0.5) (2024-12-13)
+
+
+### Bug Fixes
+
+* Исправлена передача картинок и иконок ([ade01d3](https://github.com/Mid1i/Kwagga/commit/ade01d3fe32a3fa25789a1fd2d7a94f0181ed18c))
+
 ## [1.0.4](https://github.com/Mid1i/Kwagga/compare/v1.0.3...v1.0.4) (2024-12-13)
 
 
