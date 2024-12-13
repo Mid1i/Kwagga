@@ -45,7 +45,7 @@
 						/>
 						<label :for="sorting.value" class="content__list-label">
 							<svg class="content__list-icon" height="14" width="14">
-								<use :xlink:href="`src/assets/icons/sorting.svg#${sorting.icon}`"/>
+								<use :xlink:href="`/icons/sorting.svg#${sorting.icon}`"/>
 							</svg>
 							{{ sorting.title }}
 						</label>

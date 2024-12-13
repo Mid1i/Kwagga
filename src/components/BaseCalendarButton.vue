@@ -8,7 +8,7 @@
 <template>
 	<button class="button">
 		<svg class="button__icon" height="14" width="8">
-			<use :xlink:href="`src/assets/icons/calendar.svg#${icon}`"/>
+			<use :xlink:href="`/icons/calendar.svg#${icon}`"/>
 		</svg>
 	</button>
 </template>

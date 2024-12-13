@@ -97,22 +97,22 @@
 			<div class="main__row">
 				<button @click="() => isBookingVisible = !isBookingVisible" class="main__button" title="Добавить бронь">
 					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#add"/>
+						<use xlink:href="/icons/actions.svg#add"/>
 					</svg>
 				</button>
 				<button @click="() => isSortingVisible = !isSortingVisible" class="main__button" title="Сортировать брони">
 					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#sort"/>
+						<use xlink:href="/icons/actions.svg#sort"/>
 					</svg>
 				</button>
 				<button @click="() => isFiltersVisible = !isFiltersVisible" class="main__button" title="Применить фильтры">
 					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#filter"/>
+						<use xlink:href="/icons/actions.svg#filter"/>
 					</svg>
 				</button>
 				<button @click="() => isSearchVisible = !isSearchVisible" class="main__button" title="Найти бронь">
 					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#search"/>
+						<use xlink:href="/icons/actions.svg#search"/>
 					</svg>
 				</button>
 			</div>

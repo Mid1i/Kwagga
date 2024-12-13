@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import { onMounted, ref, watch } from "vue";
+
 	import { useTheme } from "@/store/theme";
 
 
@@ -67,7 +68,7 @@
 	<section class="widget">
 		<div :class="['widget__wrapper', { red: id % 3 === 1 }, { blue: id % 3 === 2 }]">
 			<svg class="widget__icon" height="20" width="20">
-				<use :xlink:href="`src/assets/icons/widgets.svg#widget-${id % 3 + 1}`"/>
+				<use :xlink:href="`/icons/widgets.svg#widget-${id % 3 + 1}`"/>
 			</svg>
 		</div>
 		<h3 class="widget__title">{{ title }}</h3>

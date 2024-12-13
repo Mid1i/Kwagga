@@ -6,7 +6,7 @@
 <template>
 	<aside class="sidebar">
 		<svg class="sidebar__logo" height="30" width="160">
-			<use xlink:href="@/assets/icons/logo.svg#logo"/>
+			<use xlink:href="/icons/logo.svg#logo"/>
 		</svg>
 		<nav class="sidebar__nav">
 			<ul class="sidebar__list">

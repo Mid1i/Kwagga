@@ -55,10 +55,10 @@
 				</main>
 				<footer class="main__footer">
 					<Pagination
-						v-if="Math.ceil(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE) > 1"
+						v-if="Math.round(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE) > 1"
 						@update-page="usersStore.updatePage"
 						:current-page="usersStore.page"
-						:pages="Math.ceil(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE)"
+						:pages="Math.round(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE)"
 					/>
 					<span class="main__summary">{{ getSummary }}</span>
 				</footer>
@@ -68,12 +68,12 @@
 			<div class="main__row">
 				<button @click="() => isSortingVisible = !isSortingVisible" class="main__button" title="Сортировать пользователей">
 					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#sort"/>
+						<use xlink:href="/icons/actions.svg#sort"/>
 					</svg>
 				</button>
 				<button @click="() => isSearchVisible = !isSearchVisible" class="main__button" title="Найти пользователя">
 					<svg class="main__button-icon" height="20" width="20">
-						<use xlink:href="@/assets/icons/actions.svg#search"/>
+						<use xlink:href="/icons/actions.svg#search"/>
 					</svg>
 				</button>
 			</div>

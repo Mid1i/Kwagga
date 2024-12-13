@@ -182,8 +182,8 @@ export const space: TypeCoworkingSpace[] = [
 		dateOfCreating: "12.12.2024",
 		dateOfUpdating: "12.12.2024",
 		address: "г. Нижний Новгород, пл. Минина, д. 24, кв. 202",
-		design: "src/assets/images/scheme.png",
-		images: ["src/assets/images/1.png", "src/assets/images/2.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
+		design: "/images/scheme.png",
+		images: ["/images/1.png", "/images/2.png", "/images/3.png", "/images/4.png", "/images/5.png", "/images/6.png"],
 		places: [
 			{
 				id: 1,
@@ -241,8 +241,8 @@ export const space: TypeCoworkingSpace[] = [
 		dateOfCreating: "12.12.2024",
 		dateOfUpdating: "12.12.2024",
 		address: "г. Нижний Новгород, пл. Свободы, д. 2",
-		design: "src/assets/images/scheme-2.png",
-		images: ["src/assets/images/2.png", "src/assets/images/1.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/6.png"],
+		design: "/images/scheme-2.png",
+		images: ["/images/2.png", "/images/1.png", "/images/3.png", "/images/4.png", "/images/5.png", "/images/6.png"],
 		places: [
 			{
 				id: 1,
@@ -300,8 +300,8 @@ export const space: TypeCoworkingSpace[] = [
 		dateOfCreating: "12.12.2024",
 		dateOfUpdating: "12.12.2024",
 		address: "г. Нижний Новгород, пл. Свободы, д. 2",
-		design: "src/assets/images/scheme-3.png",
-		images: ["src/assets/images/6.png", "src/assets/images/1.png", "src/assets/images/3.png", "src/assets/images/4.png", "src/assets/images/5.png", "src/assets/images/2.png"],
+		design: "/images/scheme-3.png",
+		images: ["/images/6.png", "/images/1.png", "/images/3.png", "/images/4.png", "/images/5.png", "/images/2.png"],
 		places: [
 			{
 				id: 1,

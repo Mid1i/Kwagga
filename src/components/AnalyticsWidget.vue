@@ -41,7 +41,7 @@
 	<section class="analytics">
 		<div :class="['analytics__wrapper', {blue: title === 'Пользователи'}]">
 			<svg class="analytics__icon" height="20" width="20">
-				<use :xlink:href="`src/assets/icons/sidebar.svg#sidebar-${title === 'Пользователи' ? 2 : 5}`"/>
+				<use :xlink:href="`/icons/sidebar.svg#sidebar-${title === 'Пользователи' ? 2 : 5}`"/>
 			</svg>
 		</div>
 		<div class="analytics__col">
