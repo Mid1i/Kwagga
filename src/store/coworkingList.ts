@@ -15,11 +15,23 @@ export const useCoworkingList = defineStore("coworking-list", () => {
 			places: [
 				{
 					id: 1,
-					title: "Малая переговорная"
+					title: "Переговорная комната"
 				},
 				{
 					id: 2,
-					title: "Большая переговорная"
+					title: "Лаунж-зона"
+				},
+				{
+					id: 3,
+					title: "Рабочий кластер"
+				},
+				{
+					id: 4,
+					title: "Совмещенный зал"
+				},
+				{
+					id: 5,
+					title: "Mini-переговорная"
 				}
 			]
 		},
