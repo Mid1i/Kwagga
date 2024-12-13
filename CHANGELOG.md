@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/Mid1i/Kwagga/compare/v1.0.5...v1.0.6) (2024-12-13)
+
+
+### Bug Fixes
+
+* Исправлен поиск по броням ([fe3f75b](https://github.com/Mid1i/Kwagga/commit/fe3f75b4e767ec8f482d6b371d55e520e06af2c2))
+
 ## [1.0.5](https://github.com/Mid1i/Kwagga/compare/v1.0.4...v1.0.5) (2024-12-13)
 
 
