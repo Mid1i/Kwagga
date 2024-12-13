@@ -45,6 +45,8 @@ jobs:
           for var in $(cat version.env | grep -v '^#' | xargs); do
             echo "$var" >> $GITHUB_ENV
           done
+      - name: Install dependencies
+        run: npm run install
       - name: Build application
         if: env.IS_NEW_RELEASE == 'true'
         run: npm run build
