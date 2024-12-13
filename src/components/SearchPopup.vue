@@ -106,8 +106,8 @@
 							>
 								<h6 class="content__list-title">{{ booking.user.email }}</h6>
 								<span class="content__list-text date">На <b>{{ booking.dateOfBooking }}</b></span>
-								<span class="content__list-text firstName">{{ booking.coworkingSpace }}</span>
-								<span class="content__list-text lastName">{{ booking.coworkingPlace }}</span>
+								<span class="content__list-text firstName">{{ booking.coworkingSpace.title }}</span>
+								<span class="content__list-text lastName">{{ booking.coworkingPlace.title }}</span>
 							</li>
 						</ul>
 					</template>
