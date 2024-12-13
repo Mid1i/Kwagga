@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Mid1i/Kwagga/compare/v1.0.2...v1.0.3) (2024-12-13)
+
+
+### Bug Fixes
+
+* Изменения в конфигурации Nginx ([ce936ac](https://github.com/Mid1i/Kwagga/commit/ce936acf01e24edce6e32e964f128db92f12035a))
+
 ## [1.0.2](https://github.com/Mid1i/Kwagga/compare/v1.0.1...v1.0.2) (2024-12-13)
 
 
