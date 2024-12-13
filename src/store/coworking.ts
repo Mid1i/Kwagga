@@ -1,7 +1,7 @@
-import { ref, computed, watch } from "vue";
+import { ref, watch } from "vue";
 import { defineStore } from "pinia";
 
-import type { TypeCoworkingSpace, TypeCoworkingPlace, TypeCoworkingSpaceExpanded } from "@/types/TypeCoworking";
+import type { TypeCoworkingSpace } from "@/types/TypeCoworking";
 import type { TypePlaceRating } from "@/types/TypePlaceRating";
 import type { TypeDadata } from "@/types/TypeDadata";
 
@@ -12,50 +12,6 @@ import { debounce } from "@/helpers/debounce";
 
 export const useCoworking = defineStore("coworking", () => {
 	/**
-	 * Все коворкинг-зоны с комнатами.
-	 */
-	const space = ref<TypeCoworkingSpace[]>([
-		{
-			id: 1,
-			name: "ИдеяHub",
-			places: [
-				{
-					id: 1,
-					name: "Малая переговорная"
-				},
-				{
-					id: 2,
-					name: "Большая переговорная"
-				}
-			]
-		},
-		{
-			id: 2,
-			name: "TechHub",
-			places: [
-				{
-					id: 1,
-					name: "Стол 1"
-				},
-				{
-					id: 2,
-					name: "Стол 2"
-				}
-			]
-		},
-		{
-			id: 3,
-			name: "BeautyLab",
-			places: [
-				{
-					id: 1,
-					name: "Общий зал"
-				}
-			]
-		}
-	]);
-
-	/**
 	 * Рейтинг коворкинг мест по кол-ву броней.
 	 */
 	const rating = ref<TypePlaceRating[]>([
@@ -63,11 +19,11 @@ export const useCoworking = defineStore("coworking", () => {
 			id: 1,
 			coworkingSpace: {
 				id: 1,
-				name: "TechHub"
+				title: "TechHub"
 			},
 			coworkingPlace: {
 				id: 1,
-				name: "Малая переговорная"
+				title: "Малая переговорная"
 			},
 			bookings: 12
 		},
@@ -75,11 +31,11 @@ export const useCoworking = defineStore("coworking", () => {
 			id: 2,
 			coworkingSpace: {
 				id: 2,
-				name: "ИдеяHub"
+				title: "ИдеяHub"
 			},
 			coworkingPlace: {
 				id: 1,
-				name: "Большая переговорная"
+				title: "Большая переговорная"
 			},
 			bookings: 10
 		},
@@ -87,11 +43,11 @@ export const useCoworking = defineStore("coworking", () => {
 			id: 4,
 			coworkingSpace: {
 				id: 2,
-				name: "ИдеяHub"
+				title: "ИдеяHub"
 			},
 			coworkingPlace: {
 				id: 1,
-				name: "Рабочий стол №1"
+				title: "Рабочий стол №1"
 			},
 			bookings: 10
 		},
@@ -99,11 +55,11 @@ export const useCoworking = defineStore("coworking", () => {
 			id: 4,
 			coworkingSpace: {
 				id: 3,
-				name: "BeautyLab"
+				title: "BeautyLab"
 			},
 			coworkingPlace: {
 				id: 1,
-				name: "Общий зал"
+				title: "Общий зал"
 			},
 			bookings: 8
 		},
@@ -111,11 +67,11 @@ export const useCoworking = defineStore("coworking", () => {
 			id: 5,
 			coworkingSpace: {
 				id: 2,
-				name: "TechHub"
+				title: "TechHub"
 			},
 			coworkingPlace: {
 				id: 2,
-				name: "Игровое место"
+				title: "Игровое место"
 			},
 			bookings: 10
 		}
@@ -124,12 +80,12 @@ export const useCoworking = defineStore("coworking", () => {
 	/**
 	 * Редактируемая коворкинг-зона.
 	 */
-	const editableSpace = ref<TypeCoworkingSpaceExpanded>(EMPTY_SPACE);
+	const editableSpace = ref<TypeCoworkingSpace>(EMPTY_SPACE);
 
 	/**
 	 * Все коворкинг-зоны (с полной информацией).
 	 */
-	const spaceExpanded = ref<TypeCoworkingSpaceExpanded[]>(SPACE);
+	const space = ref<TypeCoworkingSpace[]>(SPACE);
 
 	/**
 	 * Определяет, влючен ли сейчас режим редактирования или добавления коворкинг-зоны.
@@ -144,56 +100,52 @@ export const useCoworking = defineStore("coworking", () => {
 	/**
 	 * Новая схема для коворкинг-зоны.
 	 */
-	const newScheme = ref<File | null>(null);
+	const newDesign = ref<File | null>(null);
 
-	const { data: suggestions, isLoading: isSuggestionsLoading, fetchData: fetchSuggestions } = useDadata<TypeDadata>();
-
-	/**
-	 * Получение всех коворкинг-зон для выпадающего списка.
-	 * Возвращает массив коворкинг-зон в формате { id: 1, name: 'example' }.
-	 */
-	const getSpace = computed<TypeCoworkingPlace[]>(() => space.value.reduce((result: TypeCoworkingPlace[], item: TypeCoworkingSpace) => [...result, { name: item.name, id: item.id }], []));
-
-	/**
-	 * Получение всех комнат коворкинг-зоны.
-	 * 
-	 * @param {number} id - ID коворкинг-зоны. 
-	 * @return {TypeCoworkingPlace[]} Возвращает все комнаты, содержащиеся в данной коворкинг-зоне. 
-	 */
-	const getPlaces = (id: number): TypeCoworkingPlace[] => space.value.find(item => item.id === id)?.places || [];
+	const { 
+		/**
+		 * Подсказки при вводе адреса.
+		 */
+		data: suggestions, 
+		/**
+		 * Состояние загрузки подсказок.
+		 */
+		isLoading: isSuggestionsLoading,
+		/**
+		 * Получение подсказок с сервиса Dadata. 
+		 */ 
+		fetchData: fetchSuggestions 
+	} = useDadata<TypeDadata>();
 
 	/**
 	 * Изменение статуса коворкинг-зоны.
-	 * 
 	 * @param {number} id - ID изменяемой коворкинг-зоны. 
 	 */
 	const updateStatus = (id?: number): void => {
-		const item = spaceExpanded.value.find(item => item.id === id);
+		const item = space.value.find(item => item.id === id);
 		item && (item.active = !item.active);
 	};
 
 	/**
-	 * Включение режима добавления коворкинг-зоны.
+	 * Сброс настроек редактирования/добавления.
 	 */
-	const setAdding = (): void => {
+	const resetEditableState = () => {
 		editableSpace.value = EMPTY_SPACE;
 		isEditable.value = true;
-		newScheme.value = null;
+		newDesign.value = null;
 		newImages.value = [];
-	};
+	}
 
 	/**
 	 * Включение режима редактирования или добавления коворкинг-зоны.
-	 * 
-	 * @param {TypeCoworkingSpaceExpanded} space - Редактируемая коворкинг-зона.
+	 * @param {TypeCoworkingSpace} coworkingSpace - Редактируемая коворкинг-зона.
 	 */
-	const setEditableSpace = (space?: TypeCoworkingSpaceExpanded): void => {
-		if (space) {
-			editableSpace.value = space;
-			isEditable.value = !isEditable.value;
+	const setEditableSpace = (coworkingSpace?: TypeCoworkingSpace): void => {
+		if (coworkingSpace) {
+			editableSpace.value = coworkingSpace;
+			isEditable.value = true;
 		} else {
-			editableSpace.value = EMPTY_SPACE;
-			isEditable.value = false;
+			resetEditableState();
 		}
 	};
 
@@ -225,20 +177,25 @@ export const useCoworking = defineStore("coworking", () => {
 	};
 
 	/**
-	 * Добавление изображения коворкинг-зоны.
-	 * 
+	 * Оюработка инпута с файлом (для добавления картинок в коворкинг-зону).
 	 * @param {Event} event - Событие инпута с файлом. 
+	 * @param {"design" | "images"} target - Изменяемое свойство. 
 	 */
-	const addImage = (event: Event): void => {
+	const handleFileInput = (event: Event, target: "images" | "design"): void => {
 		const files = (event.target as HTMLInputElement).files;
 		
-		if (files) {
-			const newImage = URL.createObjectURL(files[0]);
+		if (files && files[0]) {
+			const url = URL.createObjectURL(files[0]);
 
-			editableSpace.value.images.push(newImage);
-			newImages.value.push(files[0]);
+			if (target === "images") {
+				editableSpace.value.images.push(url);
+				newImages.value.push(files[0]);
+			} else {
+				editableSpace.value.design = url;
+				newDesign.value = files[0];
+			}
 		}
-	};
+	}
 
 	/**
 	 * Изменение адреса коворкинг-зоны.
@@ -269,23 +226,8 @@ export const useCoworking = defineStore("coworking", () => {
 	const cancel = (): void => {
 		editableSpace.value = EMPTY_SPACE;
 		isEditable.value = false;
-		newScheme.value = null;
+		newDesign.value = null;
 		newImages.value = [];
-	};
-
-	/**
-	 * Добавление новой схемы коворкинг-зоны.
-	 * 
-	 * @param {Event} event - Событи инпута с файлом. 
-	 */
-	const addScheme = (event: Event): void => {
-		const files = (event.target as HTMLInputElement).files;
-
-		if (files) {
-			const url = URL.createObjectURL(files[0]);
-			editableSpace.value.scheme = url;
-			newScheme.value = files[0];
-		}
 	};
 
 	/**
@@ -309,125 +251,25 @@ export const useCoworking = defineStore("coworking", () => {
 
 
 	return {
-		/**
-		 * Все коворкинг зоны с комнатами.
-		 */
 		space,
-		/**
-		 * Все коворкинг-зоны (с полной информацией).
-		 */
-		spaceExpanded,
-		/**
-	 		* Редактируемая коворкинг-зона.
-	 		*/
-		editableSpace,
-		/**
-		 * Подсказки сервиса Dadata при вводе адреса.  
-		 */	
-		suggestions,
-		/**
-		 * Состояние загрузки подсказок с сервиса Dadata.
-		 */
-		isSuggestionsLoading,
-		/**
-		 * Рейтинг коворкинг мест по кол-ву броней.
-		 */
 		rating,
-		/**
-		 * Определяет, влючен ли сейчас режим редактирования или добавления коворкинг-зоны.
-		 */
+		suggestions,
+		editableSpace,
+		isSuggestionsLoading,
 		isEditable,
-		/**
-		 * Получение всех коворкинг-зон для выпадающего списка.
-		 * Возвращает массив коворкинг-зон в формате { id: 1, name: 'example' }.
-		 */
-		getSpace,
-		/**
-		 * Включение режима добавления коворкинг-зоны.
-		 */
-		setAdding,
-		/**
-		 * Получение всех комнат коворкинг-зоны.
-		 * 
-		 * @param {number} id - ID коворкинг-зоны. 
-		 * @return {TypeCoworkingPlace[]} Возвращает все комнаты, содержащиеся в данной коворкинг-зоне. 
-		 */
-		getPlaces,
-		/**
-		 * Изменение статуса коворкинг-зоны.
-		 * 
-		 * @param {number} id - ID изменяемой коворкинг-зоны. 
-		 */
-		updateStatus,
-		/**
-		 * Включение режима редактирования или добавления коворкинг-зоны.
-		 * 
-		 * @param {TypeCoworkingSpaceExpanded} space - Редактируемая коворкинг-зона.
-		 */
-		setEditableSpace,
-		/**
-		 * Добавление преимуществ коворкинг-зоны.
-		 * 
-		 * @param {string} name - Название преимущества. 
-		 */
-		addConvenience,
-		/**
-		 * Удаление преимущества коворкинг-зоны.
-		 * 
-		 * @param {number} index - Индекс преимущества. 
-		 */
-		deleteConvenience,
-		/**
-		 * Удаление изображения коворкинг-зоны.
-		 * 
-		 * @param {number} index - Индекс изображения. 
-		 */
-		deleteImage,
-		/**
-		 * Добавление изображения коворкинг-зоны.
-		 * 
-		 * @param {Event} event - Событие инпута с файлом. 
-		 */
-		addImage,
-		/**
-		 * Добавление новой схемы коворкинг-зоны.
-		 * 
-		 * @param {Event} event - Событи инпута с файлом. 
-		 */
-	  addScheme,
-		/**
-		 * Добавление коворкинг-зоны.
-		 */
-		addSpace,
-		/**
-		 * Сохранение коворкинг-зоны.
-		 */
-		saveSpace,
-		/**
-		 * Отмена всех изменений.
-		 */
-		cancel,
-		/**
-		 * Получение подсказок с сервиса Dadata.
-		 * 
-		 * @param {string} query - Поисковый запрос.
-		 */
+		resetEditableState,
 		fetchSuggestions,
-		/**
-		 * Изменение адреса коворкинг-зоны.
-		 * 
-		 * @param {string} address - Новый адрес. 
-		 */
-		setAddress,
-		/**
-		 * Удаление места в коворкинг-зоне.
-		 * 
-		 * @param {number} id - ID удаляемого места. 
-		 */
+		setEditableSpace,
+		deleteConvenience,
+		handleFileInput,
+		addConvenience,
+		updateStatus,
+		deleteImage,
 		deletePlace,
-		/**
-		 * Добавление нового места.
-		 */
-		addPlace
-	}
+		setAddress,
+		addPlace,
+		saveSpace,
+		addSpace,
+		cancel
+	};
 });

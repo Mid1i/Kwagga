@@ -2,6 +2,9 @@ import axios, { AxiosInstance } from "axios";
 import { ref } from "vue";
 
 
+/**
+ * Настройки для отправки API-запросов к сервису Dadata.
+ */
 const dadataService: AxiosInstance = axios.create({
 	baseURL: "http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address",
 	timeout: 3000,
@@ -14,10 +17,21 @@ const dadataService: AxiosInstance = axios.create({
 
 
 export const useDadata = <T>() => {
+	/**
+	 * Данные API-запроса.
+	 */
 	const data = ref<T | null>(null);
+	
+	/**
+	 * Состояние загрузки API-запроса.
+	 */
 	const isLoading = ref<boolean>(true);
 
 
+	/**
+	 * Получение данных подсказок при вводе адреса.
+	 * @param {string} query - Поисковый запрос. 
+	 */
 	const fetchData = async (query: string): Promise<void> => {
 		isLoading.value = true;
 		try {
@@ -25,6 +39,7 @@ export const useDadata = <T>() => {
 			isLoading.value = false;
 		} catch(error) {
 			console.error(error);
+			data.value = null;
 		}
 	};
 

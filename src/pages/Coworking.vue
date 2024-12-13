@@ -1,6 +1,4 @@
 <script setup lang="ts">
-	import { onUnmounted } from "vue";
-
 	import DoughnutAnalytics from "@/components/DoughnutAnalytics.vue";
 	import ImagesSlider from "@/components/ImagesSlider.vue";
 	import BaseTextarea from "@/components/BaseTextarea.vue";
@@ -10,15 +8,13 @@
 
 
 	const coworkingStore = useCoworking();
-
-
-	onUnmounted(coworkingStore.setEditableSpace);
 </script>
 
 
 <template>
 	<main class="main">
 		<div class="main__content">
+			<!-- Если включён режим редактирования/добавления -->
 			<div
 				v-if="coworkingStore.isEditable"
 				class="main__space space"
@@ -121,7 +117,7 @@
 								for="photo"
 							>
 								<input
-									@input="coworkingStore.addImage"
+									@input="coworkingStore.handleFileInput($event, 'images')"
 									accept="image/png, image/jpg, image/jpeg, image/svg"
 									class="space__input"
 									type="file"
@@ -192,7 +188,7 @@
 					</div>
 					<div class="space__scheme">
 						<div
-							v-if="!!coworkingStore.editableSpace.scheme" 
+							v-if="!!coworkingStore.editableSpace.design" 
 							class="space__wrapper"
 						>
 							<label 
@@ -201,7 +197,7 @@
 								for="scheme"
 							>
 								<input
-									@input="coworkingStore.addScheme"
+									@input="coworkingStore.handleFileInput($event, 'design')"
 									accept="image/png, image/jpg, image/jpeg, image/svg"
 									class="space__wrapper-input"
 									type="file"
@@ -215,7 +211,7 @@
 							<img
 								alt="План-схема коворкинг-зоны"
 								class="space__wrapper-image"
-								:src="coworkingStore.editableSpace.scheme"
+								:src="coworkingStore.editableSpace.design"
 							/>
 						</div>
 						<label
@@ -224,7 +220,7 @@
 							for="scheme"
 						>	
 							<input
-								@input="coworkingStore.addScheme"
+								@input="coworkingStore.handleFileInput($event, 'design')"
 								accept="image/png, image/jpg, image/jpeg, image/svg"
 								class="space__input"
 								id="scheme"
@@ -239,9 +235,10 @@
 					</div>
 				</div>
 			</div>
+			<!-- Просмотр всех коворкинг-зон -->
 			<div
 				v-else
-				v-for="space in coworkingStore.spaceExpanded"
+				v-for="space in coworkingStore.space"
 				:key="space.id" 
 				:class="['main__coworking coworking', { active: space.active }]"
 			>
@@ -298,7 +295,7 @@
 					<div class="coworking__scheme">
 						<img
 							alt="Планировка коворкинг-зоны"
-							:src="space.scheme"
+							:src="space.design"
 						/>
 					</div>
 					<div class="coworking__places">
@@ -319,7 +316,7 @@
 		<aside class="main__aside">
 			<button 
 				v-if="!coworkingStore.isEditable"
-				@click="coworkingStore.setAdding" 
+				@click="coworkingStore.resetEditableState" 
 				class="main__button" 
 				title="Добавить коворкинг-зону"
 			>
@@ -345,8 +342,8 @@
 					>
 						<span class="rating__number">{{ index + 1 }}</span>
 						<div class="rating__data">
-							<span class="rating__text rating__text--value">{{ item.coworkingPlace.name }}</span>
-							<span class="rating__text">{{ item.coworkingSpace.name }}</span>
+							<span class="rating__text rating__text--value">{{ item.coworkingPlace.title }}</span>
+							<span class="rating__text">{{ item.coworkingSpace.title }}</span>
 							<span class="rating__text">
 								Всего броней: 
 								<b class="rating__text--value">{{ item.bookings }}</b>

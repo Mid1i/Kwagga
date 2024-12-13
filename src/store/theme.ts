@@ -7,7 +7,6 @@ import type { TypeTheme } from "@/types/TypeThemes";
 export const useTheme = defineStore("theme", () => {
 	/**
 	 * Текущая тема приложения. По умолчанию - светлая.
-	 * 
 	 * @type {Ref<TypeTheme>}
 	 */
 	const theme: Ref<TypeTheme> = ref("light");
@@ -15,7 +14,6 @@ export const useTheme = defineStore("theme", () => {
 
 	/**
 	 * Смена темы приложения.
-	 * 
 	 * @param {TypeTheme} appTheme - новая тема приложения.
 	 */
 	const switchTheme = (appTheme: TypeTheme):void => {
@@ -30,25 +28,12 @@ export const useTheme = defineStore("theme", () => {
 	const watchStorageTheme = ():void => {
 		const storageTheme = localStorage.getItem("theme");
 		if (storageTheme === "dark" || storageTheme === "light") switchTheme(storageTheme);
-	}
+	};
 
 
 	return {
-		/**
-		 * Текущая тема приложения. По умолчанию - светлая.
-		 * 
-		 * @type {Ref<TypeTheme>}
-		 */
 		theme,
-		/**
-		 * Смена темы приложения.
-		 * 
-		 * @param {TypeTheme} appTheme - новая тема приложения.
-		 */
 		switchTheme,
-		/**
-		 * Начальная настройка темы при инициализации приложения.
-		 */
 		watchStorageTheme
 	}
 })

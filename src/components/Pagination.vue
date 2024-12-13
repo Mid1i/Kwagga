@@ -11,6 +11,7 @@
 		updatePage: [newPage: number];
 	}>();
 
+	
 	const getPages = computed<number[]>(() => {
 		const totalPages = props.pages ?? 0;
 		

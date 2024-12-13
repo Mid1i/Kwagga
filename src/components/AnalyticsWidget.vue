@@ -13,6 +13,11 @@
 	const percentage = ref<number>(0);
 
 	const animatePercentage = (): void => {
+		if (props.previousValue === 0) {
+			percentage.value = 100;
+			return;
+		}
+
 		const calculatedPercentage = Math.ceil(props.value / props.previousValue * 100 - 100);
 		const startTime = performance.now();
 
@@ -20,12 +25,12 @@
 			const elapsedTime = currentTime - startTime;
 			const progress = Math.min(elapsedTime / 1000, 1);
 			
-			percentage.value = Math.floor(calculatedPercentage * progress);
+			percentage.value = Math.round(calculatedPercentage * progress);
 			progress < 1 && requestAnimationFrame(animate);
-		}
+		};
 
 		requestAnimationFrame(animate);
-	}
+	};
 
 
 	onMounted(animatePercentage);
@@ -43,7 +48,7 @@
 			<h3 class="analytics__title">{{ title }}</h3>
 			<p class="analytics__text">За неделю</p>
 		</div>
-		<span :class="['analytics__value', { increased: previousValue < value }, { decreased: previousValue > value }]">
+		<span :class="['analytics__value', { increased: previousValue < value, decreased: previousValue > value }]">
 			{{ `${previousValue < value ? "+" : ""}${percentage}%` }}
 		</span>
 		<span class="analytics__value">{{ value }}</span>

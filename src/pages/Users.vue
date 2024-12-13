@@ -23,7 +23,7 @@
 	const { isActivePopup: isSortingVisible, togglePopup: toggleSortingPopup } = usePopup();
 
 
-	const getSummary = computed<string>(() => `${usersStore.page + 1} страница из ${Math.round(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE)} (${getWordEnding(usersStore.fillUsers().length, "пользователь", "пользователя", "пользователей")})`);
+	const getSummary = computed<string>(() => `${usersStore.page + 1} страница из ${Math.ceil(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE)} (${getWordEnding(usersStore.fillUsers().length, "пользователь", "пользователя", "пользователей")})`);
 </script>
 
 
@@ -49,16 +49,16 @@
 						<span class="user__cell">{{ user.firstName }}</span>
 						<span class="user__cell">{{ user.lastName }}</span>
 						<span class="user__cell">{{ user.email }}</span>
-						<span class="user__cell">{{ user.bookings.length }}</span>
+						<span class="user__cell">{{ user.bookings?.length || "-" }}</span>
 						<span class="user__cell">{{ user.dateOfRegistration }}</span>
 					</div>
 				</main>
 				<footer class="main__footer">
 					<Pagination
-						v-if="Math.round(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE) > 1"
+						v-if="Math.ceil(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE) > 1"
 						@update-page="usersStore.updatePage"
 						:current-page="usersStore.page"
-						:pages="Math.round(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE)"
+						:pages="Math.ceil(usersStore.fillUsers().length / usersStore.PAGINATION_SIZE)"
 					/>
 					<span class="main__summary">{{ getSummary }}</span>
 				</footer>

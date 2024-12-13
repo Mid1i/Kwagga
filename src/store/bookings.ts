@@ -6,32 +6,11 @@ import type { TypeBooking } from "@/types/TypeBookings";
 
 import { usePagination } from "@/hooks/usePagination";
 import { useSorting } from "@/hooks/useSorting";
-
-
-const booking: TypeBooking = {
-	id: 1,
-	user: {
-		id: 4,
-		firstName: "Михаил",
-		lastName: "Чернов",
-		email: "example@mail.ru"
-	},
-	coworkingSpace: {
-		id: 1,
-		name: "TechHub"
-	},
-	coworkingPlace: {
-		id: 1,
-		name: "Малая переговорная"
-	},
-	comment: "Подальше от входа",
-	dateOfCreating: "26.07.2024",
-	dateOfBooking: "26.07.2024"
-};
+import { booking } from "@/constants";
 
 
 export const useBookings = defineStore("bookings", () => {
-	const WEEK_BOOKINGS: number[] = [8, 10, 10, 34, 20, 53, 15];
+	const WEEK_BOOKINGS: number[] = [12, 20, 17, 19, 10, 7, 14];
 
 	const { page, PAGINATION_SIZE, updatePage } = usePagination();
 	const { sorting, setSorting } = useSorting(page);
@@ -40,6 +19,8 @@ export const useBookings = defineStore("bookings", () => {
 	 * Результаты поиска.
 	 */
 	const searchResults = ref<TypeBooking[]>([]);
+
+	const bookings = ref<TypeBooking[]>(Array.from({ length: 10 }, (_, i) => ({ ...booking, id: i + 1 })));
 
 	/**
 	 * Применённые фильтры.
@@ -53,19 +34,13 @@ export const useBookings = defineStore("bookings", () => {
 
 
 	/**
-	 * Заполнение броней по шаблону (временно).
-	 * 
-	 * @return {TypeBooking[]} Возвращает массив броней.
+	 * Заполнение броней по шаблону (FIXME:).
+	 * @return {TypeBooking[]} Массив броней.
 	 */
-	const fillBookings = (): TypeBooking[] => {
-		let bookings = [];
-		for (let i = 0; i < 56; i++) bookings.push({...booking, id: i + 1});
-		return bookings;
-	};
+	const fillBookings = (): TypeBooking[] => Array.from({ length: 10 }, (_, i) => ({ ...booking, id: i + 1 }));
 
 	/**
-	 * Поиск броней по id.
-	 * 
+	 * Поиск броней по `id`.
 	 * @param {string} search - Текущая величина поиска.
 	 */
 	const searchBookings = (search: string): void => {
@@ -74,29 +49,26 @@ export const useBookings = defineStore("bookings", () => {
 
 	/**
 	 * Проверка на существование фильтра.
-	 * 
 	 * @param {TypeBookingFilter} filter - Проверяемый фильтр. 
-	 * @return {boolean} Возвращает true, если такой фильтр есть, false - если фильтра нет. 
+	 * @return {boolean} Результат проверки. 
 	 */
-	const isActiveFilter = (filter: TypeBookingFilter): boolean => !!filters.value.find(item => JSON.stringify(item) === JSON.stringify(filter));
+	const isActiveFilter = (filter: TypeBookingFilter): boolean => filters.value.some(item => JSON.stringify(item) === JSON.stringify(filter));
 
 	/**
-	 * Обновление фильтров.
-	 * 
-	 * @param {TypeBookingFilter} filter - Текущий фильтр, содержащий id пространства и id комнаты.
+	 * Изменение фильтров.
+	 * @param {TypeBookingFilter} filter - Текущий фильтр, содержащий `id` пространства и `id` комнаты.
 	 */
 	const updateFilters = (filter: TypeBookingFilter): void => {
 		filters.value = isActiveFilter(filter) ? filters.value.filter(item => JSON.stringify(item) !== JSON.stringify(filter)) : [...filters.value, filter];
 	};
 
 	/**
-	 * Обновление фильтров, связанных с датами.
-	 * 
-	 * @param {TypeBookingDateFilter} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
+	 * Изменение фильтров, связанных с датами.
+	 * @param {TypeBookingDateFilter} filter - Текущий фильтр, содержащий `id` и начало/конец промежутка.
 	 */
 	const updateDateFilters = (filter: TypeBookingDateFilter): void => {
-		const isExistingId = dateFilters.value.find(item => item.id === filter.id);
-		dateFilters.value = isExistingId ? dateFilters.value.map(item => item.id === filter.id ? { ...item, ...filter } : item) : [...dateFilters.value, filter];
+		const isExist = dateFilters.value.find(item => item.id === filter.id);
+		dateFilters.value = isExist ? dateFilters.value.map(item => item.id === filter.id ? { ...item, ...filter } : item) : [...dateFilters.value, filter];
 	};
 
 	/**
@@ -116,89 +88,22 @@ export const useBookings = defineStore("bookings", () => {
 
 
 	return {
-		/**
-		 * Текущие фильтры.
-		 */
-		filters,
-		/**
-		 * Применённые фильтры, связанные с датами.
-		 */
-		dateFilters,
-		/**
-		 * Текущая сортировка.
-		 */
-		sorting,
-		/**
-		 * Результаты поиска.
-		 */
-		searchResults,
-		/**
-		 * Массив новых броней для недельного графика.
-		 */
 		WEEK_BOOKINGS,
-		/**
-		 * Текущий размер пагинации.
-		 */
+		bookings,
 		PAGINATION_SIZE,
-		/**
-		 * Текущая страница пагинации.
-		 */
+		searchResults,
+		dateFilters,
+		filters,
+		sorting,
 		page,
-		/**
-		 * Изменение страницы пагинации.
-		 * 
-		 * @param {number} newPage - Новая страница пагинации.
-		 * @return {void}
-		 */
-		updatePage,
-		/**
-		 * Заполнение броней по шаблону.
-		 * 
-		 * @return {TypeBooking[]} - Возвращает массив броней.
-		 */
-		fillBookings,
-		/**
-		 * Поиск броней по id.
-		 * 
-		 * @param {string} search - Текущая величина поиска.
-		 * @return {void}
-		 */
-		searchBookings,
-		/**
-		 * Установить/сбросить сортировку.
-		 * 
-		 * @param {string} value - Текущая сортировка. 
-		 * @return {void}
-		 */
 		setSorting,
-		/**
-		 * Проверка на существование фильтра.
-		 * 
-		 * @param {TypeBookingFilter} filter - Проверяемый фильтр. 
-		 * @return {boolean} - Возвращает true, если такой фильтр есть, false - если фильтра нет. 
-		 */
-		isActiveFilter,
-		/**
-		 * Обновление фильтров.
-		 * 
-		 * @param {TypeBookingFilter} filter - Текущий фильтр, содержащий id пространства и id комнаты. 
-		 * @return {void}
-		 */
+		updatePage,
+		// fillBookings,
+		searchBookings,
 		updateFilters,
-		/**
-		 * Обновление фильтров, связанных с датами.
-		 * 
-		 * @param {TypeBookingDateFilter} filter - Текущий фильтр, содержащий id и начало/конец промежутка.
-		 * @return {void} 
-		 */
+		isActiveFilter,
 		updateDateFilters,
-		/**
-		 * Сброс всех фильтров.
-		 */
 		clearFilters,
-		/**
-		 * Применение фильтров.
-		 */
 		applyFilters
 	}
 });

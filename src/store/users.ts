@@ -3,19 +3,15 @@ import { defineStore } from "pinia";
 
 import type { TypeUser } from "@/types/TypeUsers";
 
-
-const user: TypeUser = {
-	id: 1,
-	firstName: "Иван",
-	lastName: "Иванов",
-	email: "example@mail.ru",
-	bookings: [2, 4, 1, 5, 2],
-	dateOfRegistration: "26.07.2024"
-};
+import { useSorting } from "@/hooks/useSorting";
+import { user } from "@/constants";
 
 
 export const useUsers = defineStore("users", () => {
-	const WEEK_USERS: number[] = [8, 10, 10, 34, 20, 53, 15];
+	/**
+   * Массив новых пользователей для недельного графика.
+   */
+	const WEEK_USERS: number[] = [2, 1, 1, 0, 0, 3, 2];
 
 	/**
 	 * Кол-во пользователей, отображаемых на странице в пагинации.
@@ -32,26 +28,17 @@ export const useUsers = defineStore("users", () => {
 	 */
 	const searchResults = ref<TypeUser[]>([]);
 
-	/**
-	 * Текущая сортировка.
-	 */
-	const sorting = ref<string>("");
+	const { sorting, setSorting } = useSorting(page);
 
 
 	/**
-	 * Заполнение пользователей по шаблону (временно).
-	 * 
-	 * @return {TypeUser[]} - Возвращает массив пользователей.
+	 * Временное заполнение пользователей по шаблону (FIXME:).
+	 * @return {TypeUser[]} Массив пользователей.
 	 */
-	const fillUsers = (): TypeUser[] => {
-		let users = [];
-		for (let i = 0; i < 53; i++) users.push({...user, id: i + 1});
-		return users;
-	};
+	const fillUsers = (): TypeUser[] => Array.from({ length: 15 }, (_, index) => ({ ...user, id: index + 1 }));
 
 	/**
 	 * Изменение страницы пагинации.
-	 * 
 	 * @param {number} newPage - Новая страница.
 	 */
 	const updatePage = (newPage: number): void => {
@@ -59,69 +46,23 @@ export const useUsers = defineStore("users", () => {
 	};
 
 	/**
-	 * Поиск пользователей по email или id.
-	 * 
+	 * Поиск пользователей по `email` или `id`.
 	 * @param {string} search - Текущая величина поиска.
 	 */
 	const searchUsers = (search: string): void => {
 		searchResults.value = search ? fillUsers().filter(item => item.email.includes(search) || item.id === Number(search)) : [];
 	};
 
-	/**
-	 * Установить/сбросить сортировку по пользователям.
-	 * 
-	 * @param {string} value - Текущая сортировка.
-	 */
-	const setSorting = (value: string): void => {
-		sorting.value = sorting.value === value ? "" : value;
-		page.value = 0;
-	};
-
 
 	return {
-		/**
-		 * Текущая сортировка.
-		 */
-		sorting,
-		/**
-		 * Результаты поиска.
-		 */
-		searchResults,
-		/**
-		 * Массив новых пользователей для недельного графика.
-		 */
-		WEEK_USERS,
-		/**
-		 * Текущий размер пагинации.
-		 */
 		PAGINATION_SIZE,
-		/**
-		 * Текущая страница пагинации.
-		 */
+		WEEK_USERS,
+		searchResults,
+		sorting,
 		page,
-		/**
-		 * Изменение страницы пагинации.
-		 * 
-		 * @param {number} newPage - Новая страница пагинации.
-		 */
-		updatePage,
-		/**
-		 * Заполнение пользователей по шаблону.
-		 * 
-		 * @return {TypeUser[]} - Возвращает массив пользователей.
-		 */
-		fillUsers,
-		/**
-		 * Поиск пользователей по email или id.
-		 * 
-		 * @param {string} search - Текущая величина поиска.
-		 */
 		searchUsers,
-		/**
-		 * Установить/сбросить сортировку.
-		 * 
-		 * @param {string} value - Текущая сортировка.
-		 */
+		updatePage,
+		fillUsers,
 		setSorting
 	}
 });

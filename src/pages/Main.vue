@@ -14,28 +14,28 @@
 	const themeStore = useTheme();
 
 
-	const WEEK_BOOKINGS: number[] = [36, 75, 17, 91, 103, 47, 114];
+	const WEEK_BOOKINGS: number[] = [12, 20, 17, 19, 10, 7, 14];
 
-	const WEEK_USERS: number[] = [8, 10, 10, 34, 20, 53, 15];
+	const WEEK_USERS: number[] = [2, 1, 1, 0, 0, 3, 2];
 
 	const places = [
 		{
 			id: 1,
 			title: "ИдеяHub",
 			percentage: 61,
-			value: 180
+			value: 20
 		},
 		{
 			id: 2,
 			title: "TechHub",
 			percentage: 84,
-			value: 100
+			value: 10
 		},
 		{
 			id: 3,
 			title: "BeautyLab",
 			percentage: 33,
-			value: 20
+			value: 12
 		}
 	];
 
@@ -44,50 +44,50 @@
 			id: 1,
 			bookingId: 1,
 			userId: 5,
-			dateOfCreating: "20.07.2024",
-			dateOfBooking: "21.07.2024"
+			dateOfCreating: "13.12.2024",
+			dateOfBooking: "15.12.2024"
 		},
 		{
 			id: 2,
 			bookingId: 2,
 			userId: 5,
-			dateOfCreating: "20.07.2024",
-			dateOfBooking: "21.07.2024"
+			dateOfCreating: "13.12.2024",
+			dateOfBooking: "14.12.2024"
 		},
 		{
 			id: 3,
 			bookingId: 3,
-			userId: 5,
-			dateOfCreating: "20.07.2024",
-			dateOfBooking: "21.07.2024"
+			userId: 4,
+			dateOfCreating: "12.12.2024",
+			dateOfBooking: "13.12.2024"
 		},
 		{
 			id: 4,
 			bookingId: 4,
 			userId: 5,
-			dateOfCreating: "20.07.2024",
-			dateOfBooking: "21.07.2024"
+			dateOfCreating: "10.12.2024",
+			dateOfBooking: "11.12.2024"
 		},
 		{
 			id: 5,
 			bookingId: 5,
-			userId: 5,
-			dateOfCreating: "20.07.2024",
-			dateOfBooking: "21.07.2024"
+			userId: 1,
+			dateOfCreating: "10.12.2024",
+			dateOfBooking: "11.12.2024"
 		},
 		{
 			id: 6,
 			bookingId: 6,
-			userId: 5,
-			dateOfCreating: "20.07.2024",
-			dateOfBooking: "21.07.2024"
+			userId: 2,
+			dateOfCreating: "10.12.2024",
+			dateOfBooking: "10.12.2024"
 		},
 		{
 			id: 7,
 			bookingId: 7,
-			userId: 5,
-			dateOfCreating: "20.07.2024",
-			dateOfBooking: "21.07.2024"
+			userId: 3,
+			dateOfCreating: "09.12.2024",
+			dateOfBooking: "08.12.2024"
 		},
 	];
 
@@ -96,13 +96,13 @@
 			id: 1,
 			title: "Пользователи",
 			previousValue: 25,
-			value: 35
+			value: 7
 		},
 		{
 			id: 2,
 			title: "Брони",
 			previousValue: 43,
-			value: 67
+			value: 85
 		}
 	];
 </script>

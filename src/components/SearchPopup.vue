@@ -29,11 +29,18 @@
 	const searchModel = ref<string>("");
 
 	
+	/**
+	 * Получение сообщения с результатами поиска.
+	 */
 	const generateResultsMessage = computed<string>(() => {
 		const length = props.searchResults.length;
 		return length ? `Найден${length % 10 !== 1 ? 'о' : ''} ${getWordEnding(length, 'результат', 'результата', 'результатов')}` : "";
 	});
 
+	/**
+	 * Подсветка совпадающих частей запроса и результата.
+	 * @param {string} text - Результат поиска. 
+	 */
 	const highlightMatches = (text: string): string => {
 		if (!searchModel.value) return text;
 
@@ -41,6 +48,9 @@
 		return text.replace(regex, `<span class="highlight">$1</span>`);
 	};
 
+	/**
+	 * Сброс поиска.
+	 */
 	const clearSearch = (): void => {
 		setTimeout(() => (searchModel.value = ""), 300);
 		emits("closePopup");

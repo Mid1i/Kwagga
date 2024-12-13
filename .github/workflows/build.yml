@@ -1,0 +1,108 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  create_version:
+    runs-on: kwagga-host
+    steps:
+      - name: Get Repository
+        uses: actions/checkout@v4
+      - name: Install Node JS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Create directory
+        run: mkdir -p semantic_release_modules
+      - name: Install semantic-release
+        run: npm install semantic-release @semantic-release/changelog @semantic-release/git --prefix ./semantic_release_modules
+      - name: Create version
+        run: ./semantic_release_modules/node_modules/.bin/semantic-release --dry-run
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Upload version as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: version
+          path: ./version.env
+          if-no-files-found: error
+          retention-days: 1
+
+  build_image:
+    runs-on: kwagga-host
+    needs: create_version
+    steps:
+      - name: Get Repository
+        uses: actions/checkout@v4
+      - name: Download Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+      - name: Export version
+        run: |
+          for var in $(cat version.env | grep -v '^#' | xargs); do
+            echo "$var" >> $GITHUB_ENV
+          done
+      - name: Build application
+        if: env.IS_NEW_RELEASE == 'true'
+        run: npm run build
+      - name: Build Docker Image
+        if: env.IS_NEW_RELEASE == 'true'
+        run: docker build . -t kwagga-admin-ui:$VERSION
+  
+  run_container:
+    runs-on: kwagga-host
+    needs: build_image
+    steps:
+      - name: Get Repository
+        uses: actions/checkout@v4
+      - name: Download Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+      - name: Export version
+        run: |
+          for var in $(cat version.env | grep -v '^#' | xargs); do
+            echo "$var" >> $GITHUB_ENV
+          done
+      - name: Stop container
+        run: docker stop kwagga-admin-ui-dev || true
+      - name: Remove container
+        run: docker rm kwagga-admin-ui-dev || true
+      - name: Run container
+        run: |
+          docker run \
+          -e VITE_DADATA_API_KEY=${{ secrets.VITE_DADATA_API_KEY }} \
+          -e VITE_API_URL="" \
+          -e VIRTUAL_HOST=admin.kwagga.ru \
+          -e LETSENCRYPT_HOST=admin.kwagga.ru \
+          --expose 80 -d --name kwagga-admin-ui-dev --network kwagga --restart unless-stopped kwagga-admin-ui:${{ env.VERSION }}
+
+  create_tag:
+    runs-on: kwagga-host
+    needs: run_container
+    steps:
+      - name: Get Repository
+        uses: actions/checkout@v4
+      - name: Install Node JS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Create directory
+        run: mkdir -p semantic_release_modules
+      - name: Install semantic-release
+        run: npm install semantic-release @semantic-release/changelog @semantic-release/git --prefix ./semantic_release_modules
+      - name: Create version tag
+        run: ./semantic_release_modules/node_modules/.bin/semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  cleanup:
+    runs-on: kwagga-host
+    needs: create_tag
+    steps:
+      - name: Cleaning the directory
+        run: rm -rf ./*
+

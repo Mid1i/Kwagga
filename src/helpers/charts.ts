@@ -3,8 +3,7 @@ import type { TypeWeekDay } from "@/types/TypeWeekDays";
 
 /**
  * Получение дней недели для графика.
- * 
- * @return {TypeWeekDaus[]} Возвращает массив дней для подписи оси графика. 
+ * @return {TypeWeekDaus[]} Массив дней для подписи оси графика. 
  */
 export const getWeekLabels = (): TypeWeekDay[] => {
 	let date = new Date();

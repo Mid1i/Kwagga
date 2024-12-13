@@ -1,5 +1,7 @@
 <script setup lang="ts">
 	import { ref } from "vue";
+
+	import type { TypeCoworkingPlaceList } from "@/types/TypeCoworkingList";
 	import type { TypeBooking } from "@/types/TypeBookings";
 
 	import BaseCheckbox from "@/components/BaseCheckbox.vue";
@@ -7,12 +9,9 @@
 
 	defineProps<{
 		isActiveElement: (id: number) => boolean;
-		name: string;
+		elements: TypeCoworkingPlaceList[];
 		id: keyof TypeBooking;
-		elements: {
-			id: number;
-			name: string;
-		}[];
+		name: string;
 	}>();
 
 	defineEmits<{
@@ -40,11 +39,11 @@
 				class="dropdown__list-el"
 			>
 				<BaseCheckbox 
-					@click="$emit('changeElement', { id: element.id, name: element.name }, id)" 
+					@click="$emit('changeElement', { id: element.id, title: element.title }, id)" 
 					:is-active="isActiveElement(element.id)"
-					:id="`${element.name}${element.id}`"
+					:id="`${element.title}${element.id}`"
 				/>
-				<label :for="`${element.name}${element.id}`" class="dropdown__list-label">{{ element.name }}</label>
+				<label :for="`${element.title}${element.id}`" class="dropdown__list-label">{{ element.title }}</label>
 			</li>
 		</ul>	
 	</section>

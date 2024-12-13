@@ -19,13 +19,29 @@
 		updateDate: [date: Date];
 	}>();
 	
+	/**
+	 * Режим календаря.
+	 */
 	const activeMode = ref<"calendar" | "months" | "years">("calendar");
+
+	/**
+	 * Показываемая страница года (по умолчанию 0 - 2020-2040).
+	 */
 	const yearsModePage = ref<number>(0);
 
-	const currentDate = ref<Date>(new Date());
-	const currentMonth = ref<number>(currentDate.value.getMonth());
-	const currentYear = ref<number>(currentDate.value.getFullYear());
+	/**
+	 * Текущий месяц.
+	 */
+	const currentMonth = ref<number>(new Date().getMonth());
 
+	/**
+	 * Текущий год.
+	 */
+	const currentYear = ref<number>(new Date().getFullYear());
+
+	/**
+	 * Заполнение календаря в соотсетствие с днями недели.
+	 */
 	const getMonthDates = computed<TypeCalendarDay[]>(() => {
 		const date = new Date(currentYear.value, currentMonth.value);
 		const firstDayOfMonth: number = getWeekDayNumber(date);
@@ -45,28 +61,43 @@
 			
 			date.setDate(date.getDate() + 1);
 		};
-		
+
 		return dates;
 	});
 
+	/**
+	 * Получение массива лет при выборе года.
+	 */
 	const getYearsModeContent = computed<number[]>(() => {
 		const nearestYear = currentYear.value - (currentYear.value % 10) + 10 * yearsModePage.value;
 		return Array.from({ length: 21 }, (_, i) => nearestYear + i);
 	});
 
+	/**
+	 * Проверяет выбрана дата или нет.
+	 * @param {Date} date - Указанная дата. 
+	 */
 	const isSelectedDate = (date: Date): boolean => props.userDate?.getTime() === date.getTime();
 
+	/**
+	 * Изменение года.
+	 * @param {number} year - Новый год. 
+	 */
 	const updateYear = (year: number): void => {
 		activeMode.value = "calendar";
 		currentYear.value = year;
-	}
+	};
 
+	/**
+	 * Изменение месяца.
+	 * @param {number} month - Номер нового месяца. 
+	 */
 	const updateMonth = (month: number): void => {
 		currentMonth.value = (month + 12) % 12;
 		if (month < 0) currentYear.value--;
 		if (month > 11) currentYear.value++;
 		activeMode.value = "calendar";
-	}
+	};
 </script>
 
 

@@ -1,9 +1,9 @@
-import type { TypeCoworkingPlace } from "@/types/TypeCoworking";
+import type { TypeCoworkingPlaceList } from "@/types/TypeCoworkingList";
 
 
 export type TypePlaceRating = {
 	id: number;
-	coworkingSpace: TypeCoworkingPlace,
-	coworkingPlace: TypeCoworkingPlace,
+	coworkingSpace: TypeCoworkingPlaceList,
+	coworkingPlace: TypeCoworkingPlaceList,
 	bookings: number;
 };

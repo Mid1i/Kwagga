@@ -23,7 +23,6 @@
 	const createChart = (): void => {
 		if (canvasRef.value) {
 			destroyChart();
-			
 			chart = new Chart(canvasRef.value, chartConfig(props.data, props.labels, props.colors, themeStore.theme));
 		}
 	};

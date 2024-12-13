@@ -14,7 +14,6 @@ export const usePagination = () => {
 
 	/**
 	 * Изменение страницы пагинации.
-	 * 
 	 * @param {number} newPage - Новая страница.
 	 */
 	const updatePage = (newPage: number): void => {
@@ -23,19 +22,8 @@ export const usePagination = () => {
 
 
 	return {
-		/**
-		 * Текущая страница пагинации.
-		 */
 		page,
-		/**
-		 * Кол-во броней, отображаемых на странице в пагинации.
-		 */
 		PAGINATION_SIZE,
-		/**
-		 * Изменение страницы пагинации.
-		 * 
-		 * @param {number} newPage - Новая страница.
-		 */
 		updatePage
 	}
 }
