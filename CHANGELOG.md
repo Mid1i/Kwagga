@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/Mid1i/Kwagga/compare/v1.0.0...v1.0.1) (2024-12-13)
+
+
+### Bug Fixes
+
+* Изменения в CI ([7002321](https://github.com/Mid1i/Kwagga/commit/700232174481975c924bac46e8a26947dd4efa24))
+* Изменения в Dockerfile ([791d12a](https://github.com/Mid1i/Kwagga/commit/791d12aa2937714bd3755b484ea4a98605f759b9))
+
 # 1.0.0 (2024-12-13)
 
 
